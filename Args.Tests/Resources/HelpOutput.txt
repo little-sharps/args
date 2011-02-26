@@ -1,0 +1,16 @@
+This is my console application
+<command> FileName [/Id] [/Name] [/Switch] [/Date] [/Descripton] [/Work]
+
+
+FileName              The name of the file
+[/Id|/I]              This is the Id
+[/Name|/N]            This is the name you should put in. This is an extremely 
+                      long description that should take multiple lines to 
+                      output. The formating should still be maintained and 
+                      should look good in the output.
+[/Switch|/S]          Force it!
+[/Date|/Da]           Effective date
+[/Descripton|/De]     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[/Work|/W]            
