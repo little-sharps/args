@@ -26,7 +26,7 @@ Features
 Example
 --------
 
-If standard_convensions (see below) are used, then usage is extremely simple. Define a POCO to hold your command line argument values:
+If standard conventions are used (see below), then usage is extremely simple. Define a POCO to hold your command line argument values:
 
     public class CommandObject
 	{
