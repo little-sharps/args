@@ -21,7 +21,7 @@ Features
   - Can also provide a lambda expression for type conversion
 - Ability to define default values if one is not provided
 - Attributes used from `System.ComponentModel` namespace whenever possible
-- Available via [NuGet](http://www.nuget.org) _comming soon_
+- Available via [NuGet](http://www.nuget.org) _coming soon_
 
 Example
 --------
@@ -42,7 +42,9 @@ If standard_convensions (see below) are used, then usage is extremely simple. De
 		    var command = Args.Configuration.Configure<CommandObject>().CreateAndBind(args);
 		}
 	}
-	
+
+And you can call your exe like this:
+
 	C:\> MyProgram.exe /s readme.txt /d readme2.txt /f
 	
 Conventions
