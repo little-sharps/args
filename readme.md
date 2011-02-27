@@ -13,20 +13,20 @@ Features
 - Interfaces for most classes to allow for easy mocking
 - Auto-generated help document
   - Comes packaged with a console formatter
-  - Writing your own is as simple as implementing IHelpFormatter
+  - Writing your own is as simple as implementing `IHelpFormatter`
 - Out-of-the-box support for type conversion of all "simple" .NET types
 - Enum support, including flags support
 - Use existing TypeConverters for custom types
   - Can also implement a simple class for type conversion
   - Can also provide a lambda expression for type conversion
 - Ability to define default values if one is not provided
-- Attributes used from System.ComponentModel namespace whenever possible
-- Available via [http://www.nuget.org NuGet] _comming soon_
+- Attributes used from `System.ComponentModel` namespace whenever possible
+- Available via [NuGet](http://www.nuget.org) _comming soon_
 
 Example
 --------
 
-If [#standard_convensions] are used, then usage is extremely simple. Define a POCO to hold your command line argument values:
+If standard_convensions (see below) are used, then usage is extremely simple. Define a POCO to hold your command line argument values:
 
     public class CommandObject
 	{
@@ -51,21 +51,21 @@ Conventions
 The default conventions in Args are:
 
 - The switch delimiter is forward slash '/'
-- The switches are checked for equality using CurrentCultureIgnoreCase
-- The switch delimiter and string comparer can be set via the ArgsModelAttribute
-- The System.ComponentModel.DescriptionAttribute can be used on both the model and members to set the help text for each
+- The switches are checked for equality using `CurrentCultureIgnoreCase`
+- The switch delimiter and string comparer can be set via the `ArgsModelAttribute`
+- The `System.ComponentModel.DescriptionAttribute` can be used on both the model and members to set the help text for each
 - All public fields and public settable properties are configured
   - Each property/field has two switches configured by default
     - The minimum number of characters to make it unique from all the other properties/fields
 	- The entire name of the property/field
-- System.ComponentModel.TypeResolverAttribute can be used on members to use a specific type converter for that member
-- Args.ArgsSwitchMemberAttribute can be used to override the allowed swithces or to set as an [#ordinal_parameter]
+- `System.ComponentModel.TypeResolverAttribute` can be used on members to use a specific type converter for that member
+- `Args.ArgsSwitchMemberAttribute` can be used to override the allowed swithces or to set as an ordinal parameter (see below)
 
 
 Ordinal Parameters
 ------------------
 
-These are required parameters that do not have any switches and have a specified order.  They are used in the command line after the executable,
+These are required parameters that do not have any switches and have a specified order. They are used in the command line after the executable,
 but before any switched arguments.
 
 	
