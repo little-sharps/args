@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Args</id>
+    <version>1.0.0</version>
+    <authors>Brian Ball</authors>
+    <description>Command line parser for .NET. Parses command line parameters into custom POCO objects.</description>
+    <language>en-US</language>
+    <projectUrl>https://github.com/littlebits/args</projectUrl>
+    <licenseUrl>https://github.com/littlebits/args</licenseUrl>
+	<tags>command-line-parser</tags>
+  </metadata>
+  <files>
+    <file src="..\Args\bin\Release\*.dll" target="lib\Net40" />
+	<file src="..\Args\bin\Release\*.xml" target="lib\Net40" />
+	<file src="..\Args\bin\Release35\*.dll" target="lib\Net35" />
+	<file src="..\Args\bin\Release35\*.xml" target="lib\Net35" />
+  </files>
+</package>
