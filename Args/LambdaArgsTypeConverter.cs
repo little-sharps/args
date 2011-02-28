@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Args
 {
+    /// <summary>
+    /// This class enables type conversion to be handled by a simple lambda expression
+    /// </summary>
     public class LambdaArgsTypeConverter : IArgsTypeConverter
     {
         private readonly Func<string, object> converter;

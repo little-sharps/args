@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Args.Help
 {
+    /// <summary>
+    /// The default implementation for IHelpProvider
+    /// </summary>
     public class HelpProvider : IHelpProvider
     {
         public ModelHelp GenerateModelHelp<TModel>(IModelBindingDefinition<TModel> definition)

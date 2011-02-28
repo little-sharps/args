@@ -7,6 +7,10 @@ using System.Reflection;
 
 namespace Args
 {
+    /// <summary>
+    /// The default impelmentation for IMemberBindingDefinition
+    /// </summary>
+    /// <typeparam name="TModel">Type of model to bind</typeparam>
     public class MemberBindingDefinition<TModel> : IMemberBindingDefinition<TModel>
     {
         public virtual ModelBindingDefinition<TModel> Parent { get; protected set; }

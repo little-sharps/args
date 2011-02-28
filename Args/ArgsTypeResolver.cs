@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Args
 {
+    /// <summary>
+    /// Holds a static reference to an IServiceProvider.  If one is not specified, a default one will be use which simply uses Activator.CreateInstance and assumes a default constructor
+    /// </summary>
     public class ArgsTypeResolver : IServiceProvider
     {
         private static IServiceProvider current;

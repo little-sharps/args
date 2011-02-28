@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Args
 {
+    /// <summary>
+    /// Decorate a model with this attribute to specifiy its switch delimiter as well as the StringComparison type to use when checking for switch equality
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class ArgsModelAttribute : Attribute
     {

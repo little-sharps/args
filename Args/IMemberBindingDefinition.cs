@@ -4,6 +4,10 @@ using System.ComponentModel;
 
 namespace Args
 {
+    /// <summary>
+    /// A class that impelments this interface is responsible for signifying if it can handle a switch and also to coordinate converting the value of the switch into the appropriate type
+    /// </summary>
+    /// <typeparam name="TModel">Type of the model to bind</typeparam>
     public interface IMemberBindingDefinition<TModel>
     {
         IModelBindingDefinition<TModel> Parent { get; }

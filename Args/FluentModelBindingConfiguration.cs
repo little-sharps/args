@@ -4,6 +4,10 @@ using System.Linq.Expressions;
 
 namespace Args
 {
+    /// <summary>
+    /// Used for configuring an IModelBindingDefinition fluently
+    /// </summary>
+    /// <typeparam name="TModel">Type of the model to bind</typeparam>
     public class FluentModelBindingConfiguration<TModel>
     {
         protected readonly IModelBindingDefinition<TModel> Source;

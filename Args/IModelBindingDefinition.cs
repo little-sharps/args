@@ -5,6 +5,10 @@ using System.Reflection;
 
 namespace Args
 {
+    /// <summary>
+    /// A class that implements this interface is responsible for creating and maintaining the definition of its members as well as orchestrating the binding of data to those members
+    /// </summary>
+    /// <typeparam name="TModel">Type of the model to bind</typeparam>
     public interface IModelBindingDefinition<TModel>
     {
         IDictionary<Type, TypeConverter> TypeConverters { get; }

@@ -6,6 +6,9 @@ using System.ComponentModel;
 
 namespace Args
 {
+    /// <summary>
+    /// The default convention-based initializer. Will create and return an instance of IModelBindingDefinition
+    /// </summary>
     public class ConventionBasedModelDefinitionInitializer : IModelBindingDefinitionInitializer
     {
         public void Initialize<TModel>(IModelBindingDefinition<TModel> init)

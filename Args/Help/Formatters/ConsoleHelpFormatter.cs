@@ -6,6 +6,9 @@ using System.IO;
 
 namespace Args.Help.Formatters
 {
+    /// <summary>
+    /// Formats the ModelHelp data into a easily readable format for a console window
+    /// </summary>
     public class ConsoleHelpFormatter : IHelpFormatter
     {
         protected int BufferWidth { get; set; }

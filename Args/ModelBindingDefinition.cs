@@ -9,6 +9,9 @@ namespace Args
 {
     public class ModelBindingDefinition<TModel> : IModelBindingDefinition<TModel>
     {
+        /// <summary>
+        /// The default implementation for IModelBindingDefinition
+        /// </summary>
         public virtual IDictionary<MemberInfo, MemberBindingDefinition<TModel>> Members { get; protected set; }
 
         IEnumerable<IMemberBindingDefinition<TModel>> IModelBindingDefinition<TModel>.Members

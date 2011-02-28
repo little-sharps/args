@@ -5,6 +5,10 @@ using System.Linq.Expressions;
 
 namespace Args
 {
+    /// <summary>
+    /// Used for configuring an IMemberBindingDefinition fluently
+    /// </summary>
+    /// <typeparam name="TModel">Type of the model to bind</typeparam>
     public class FluentMemberBindingConfiguration<TModel>
     {
         protected readonly IMemberBindingDefinition<TModel> Source;
