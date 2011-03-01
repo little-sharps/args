@@ -2,13 +2,13 @@
 <package>
   <metadata>
     <id>Args</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Brian Ball</authors>
     <description>Command line parser for .NET. Parses command line parameters into custom POCO objects.</description>
     <language>en-US</language>
     <projectUrl>https://github.com/littlebits/args</projectUrl>
     <licenseUrl>https://github.com/littlebits/args</licenseUrl>
-	<iconUrl>http://littlebits.github.com/args</iconUrl>
+	<iconUrl>http://littlebits.github.com/args/console32.png</iconUrl>
 	<tags>command-line-parser</tags>
   </metadata>
   <files>
