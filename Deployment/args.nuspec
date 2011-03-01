@@ -8,6 +8,7 @@
     <language>en-US</language>
     <projectUrl>https://github.com/littlebits/args</projectUrl>
     <licenseUrl>https://github.com/littlebits/args</licenseUrl>
+	<iconUrl>http://littlebits.github.com/args</iconUrl>
 	<tags>command-line-parser</tags>
   </metadata>
   <files>
