@@ -1,5 +1,5 @@
-Args
-====
+![Logo](http://littlebits.github.com/args/console32.png) Args
+===========================================
 
 A .NET library designed to allow for binding command line arguments to POCOs.  The release will contain assemblies compiled in v3.5 and v4.0.
 
