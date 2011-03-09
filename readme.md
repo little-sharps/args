@@ -21,7 +21,7 @@ Features
   - Can also provide a lambda expression for type conversion
 - Ability to define default values if one is not provided
 - Attributes used from `System.ComponentModel` namespace whenever possible
-- Available via [NuGet](http://www.nuget.org/Packages/Packages/Details/Args-1-0-0)
+- Available via [NuGet](http://nuget.org/List/Packages/Args)
 
 Example
 --------
