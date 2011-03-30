@@ -38,7 +38,7 @@ namespace Args
         {
             if (CanConvertFrom(value.GetType()) == false) throw new NotSupportedException(String.Format("Conversion from {0} is not supported.", value.GetType().FullName));
 
-            return ConvertFrom(value);
+            return Converter.Convert(value.ToString());
         }
     }    
 }

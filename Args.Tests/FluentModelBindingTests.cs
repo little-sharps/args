@@ -38,8 +38,10 @@ namespace Args.Tests
             .UsingSwitchDelimiter("--")
             .ParsesArgumentsWith(typeof(int), new System.ComponentModel.Int16Converter())
             .HasFirstOrdinalArgumentOf(a => a.FileName)
+            .ParsesArgumentsWith(typeof(string), s => String.IsNullOrEmpty(s) ? s : s.Substring(0, s.Length - 1))
             .ForMember(a => a.Name)
                 .WatchesFor("name", "nam")
+                .ParsesArgumentWith(s => s)
             .ForMember(a => a.Id)
                 .WatchesFor("id")
                 .HasHelpTextOf("Hello World")
@@ -57,7 +59,7 @@ namespace Args.Tests
 
             var result = definitionUnderTest.CreateAndBind(args);
 
-            result.FileName.Should().Be.EqualTo("MyAssembly.dll");
+            result.FileName.Should().Be.EqualTo("MyAssembly.dl");
             result.Id.Should().Be.EqualTo(223);
             result.Name.Should().Be.EqualTo("My Name");
             result.Force.Should().Be.True();
