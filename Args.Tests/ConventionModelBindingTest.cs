@@ -11,7 +11,8 @@ namespace Args.Tests
     [TestFixture]
     public class ConventionModelBindingTest
     {
-        IModelBindingDefinition<SimpleTestModel> definitionUnderTest;
+        IModelBindingDefinition<SimpleTestModel> simpleTestModelDefinitionUnderTest;
+        IModelBindingDefinition<SimpleSwitchOnlyModel> simpleSwitchOnlyModelDefinitionUnderTest;
 
         #region Model Under Test
         public class SimpleTestModel
@@ -36,7 +37,8 @@ namespace Args.Tests
         [SetUp]
         public void SimpleModelConfigurationSetup()
         {
-            definitionUnderTest = Configuration.Configure<SimpleTestModel>();
+            simpleTestModelDefinitionUnderTest = Configuration.Configure<SimpleTestModel>();
+            simpleSwitchOnlyModelDefinitionUnderTest = Configuration.Configure<SimpleSwitchOnlyModel>();
         }
 
         [Test]
@@ -44,7 +46,7 @@ namespace Args.Tests
         {
             var args = new[] { "MyAssembly.dll", "/id", "223", "/fo", "/n", "My Name", "/s", "Low,", "Medium" };
 
-            var result = definitionUnderTest.CreateAndBind(args);
+            var result = simpleTestModelDefinitionUnderTest.CreateAndBind(args);
 
             result.FileName.Should().Be.EqualTo("MyAssembly.dll");
             result.Id.Should().Be.EqualTo(223);
@@ -58,7 +60,7 @@ namespace Args.Tests
         {
             var args = new[] { "MyAssembly.dll", "/id", "223", "/n", "My Name", "/s", "Low,", "Medium" };
 
-            var result = definitionUnderTest.CreateAndBind(args);
+            var result = simpleTestModelDefinitionUnderTest.CreateAndBind(args);
 
             result.FileName.Should().Be.EqualTo("MyAssembly.dll");
             result.Id.Should().Be.EqualTo(223);
@@ -72,13 +74,46 @@ namespace Args.Tests
         {
             var args = new[] { "MyAssembly.dll", "/fo", "/n", "My Name", "/s", "Low,", "Medium" };
 
-            var result = definitionUnderTest.CreateAndBind(args);
+            var result = simpleTestModelDefinitionUnderTest.CreateAndBind(args);
 
             result.FileName.Should().Be.EqualTo("MyAssembly.dll");
             result.Id.Should().Be.EqualTo(20);
             result.Name.Should().Be.EqualTo("My Name");
             result.Force.Should().Be.True();
             result.Speed.Should().Be.EqualTo(FanSpeed.Low | FanSpeed.Medium);
+        }
+
+        [Test]
+        public void TestWithFlagAtTheEnd()
+        {
+            var args = new[] { "MyAssembly.dll", "/id", "223", "/n", "My Name", "/s", "Low,", "Medium", "/fo" };
+
+            var result = simpleTestModelDefinitionUnderTest.CreateAndBind(args);
+
+            result.FileName.Should().Be.EqualTo("MyAssembly.dll");
+            result.Id.Should().Be.EqualTo(223);
+            result.Name.Should().Be.EqualTo("My Name");
+            result.Force.Should().Be.True();
+            result.Speed.Should().Be.EqualTo(FanSpeed.Low | FanSpeed.Medium);
+        }
+
+        #region Model Under Test
+        public class SimpleSwitchOnlyModel
+        {
+            public int Id { get; set; }
+            public bool Force { get; set; }
+            public string Name { get; set; }
+        }
+        #endregion
+
+        [Test]
+        public void FlagOnlyTest()
+        {
+            var args = new[] { "/f" };
+
+            var result = simpleSwitchOnlyModelDefinitionUnderTest.CreateAndBind(args);
+
+            result.Force.Should().Be.True();
         }
     }
 }

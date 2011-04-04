@@ -106,13 +106,13 @@ namespace Args
 
             foreach(var member in namedMembers)
             {
-                //find a suitable switch, then skip 1 (to skip the switch itself)
-                var argument = switchedArguments.SkipWhile(a => a.Length <= SwitchDelimiter.Length || member.Value.CanHandleSwitch(a.Substring(SwitchDelimiter.Length)) == false).Skip(1);
+                //find a suitable switch
+                var argument = switchedArguments.SkipWhile(a => a.Length <= SwitchDelimiter.Length || member.Value.CanHandleSwitch(a.Substring(SwitchDelimiter.Length)) == false);
 
                 if (argument.Any())
                 {
-                    //take all arguments until the next switch is found
-                    var argumentValue = argument.TakeWhile(a => a.StartsWith(SwitchDelimiter) == false);
+                    //take all arguments until the next switch is found, skipping the first, which is the switch itself
+                    var argumentValue = argument.Skip(1).TakeWhile(a => a.StartsWith(SwitchDelimiter) == false);
 
                     HandleInputs(argumentValue, model, member.Value);
                 }
