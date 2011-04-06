@@ -1,1 +1,1 @@
-NuGet.exe p args.nuspec
+NuGet.exe pack args.nuspec
