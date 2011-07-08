@@ -34,11 +34,13 @@ namespace Args.Help.Formatters
         {
             Output = writer;
 
-            WriteJustifiedItem(String.Empty, modelHelp.HelpText, 0);
+            if (String.IsNullOrEmpty(modelHelp.HelpText) == false)
+            {
+                WriteJustifiedItem(String.Empty, modelHelp.HelpText, 0);
+            }
 
             WriteUsage(modelHelp, writer);
-
-            Output.WriteLine();
+            
             Output.WriteLine();
 
             WriteArgumentDescriptions(modelHelp);
@@ -62,9 +64,14 @@ namespace Args.Help.Formatters
 
         protected virtual void WriteJustifiedOutput(IDictionary<string, string> lines, int padding)
         {
-            var totalPadding = lines.Max(l => l.Key.Length) + padding;
+            if (lines.Any())
+            {
+                var totalPadding = lines.Max(l => l.Key.Length) + padding;
 
-            lines.ForEach(a => WriteJustifiedItem(a.Key, a.Value, totalPadding));
+                lines.ForEach(a => WriteJustifiedItem(a.Key, a.Value, totalPadding));
+
+                Output.WriteLine();
+            }
         }
 
         protected virtual void WriteJustifiedItem(string leftColumnText, string rightColumnText, int totalPadding)
@@ -74,7 +81,7 @@ namespace Args.Help.Formatters
             Output.Write(leftColumnText);
             Output.Write(new string(' ', totalPadding - leftColumnText.Length));
 
-            var maxRightColumTextLength = BufferWidth - totalPadding;
+            var maxRightColumnTextLength = BufferWidth - totalPadding - 1;
 
             var newLinePadding = new string(' ', totalPadding);
 
@@ -83,11 +90,11 @@ namespace Args.Help.Formatters
             while (String.IsNullOrEmpty(rightColumnText.Trim()) == false)
             {
                 string part;
-                if (rightColumnText.Length < maxRightColumTextLength + 1)
+                if (rightColumnText.Length < maxRightColumnTextLength)
                     part = rightColumnText;
                 else
                 {
-                    part = rightColumnText.Substring(0, maxRightColumTextLength + 1);
+                    part = rightColumnText.Substring(0, maxRightColumnTextLength);
 
                     int lastSpaceIndex = -1;
 
@@ -100,7 +107,7 @@ namespace Args.Help.Formatters
                         }
                     }
 
-                    var partLength = lastSpaceIndex > 0 ? lastSpaceIndex + 1 : maxRightColumTextLength;
+                    var partLength = lastSpaceIndex > 0 ? lastSpaceIndex + 1 : maxRightColumnTextLength;
 
                     partLength = Math.Min(partLength, part.Length);
 
@@ -116,6 +123,10 @@ namespace Args.Help.Formatters
 
                 firstPass = false;
             }
+
+            //while loop was skipped, need new line
+            if (firstPass == true)
+                Output.WriteLine();
         }
 
         protected virtual void WriteUsage(ModelHelp modelHelp, TextWriter writer)

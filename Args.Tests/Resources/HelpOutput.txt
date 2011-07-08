@@ -1,5 +1,5 @@
 This is my console application
-<command> FileName [/Id] [/Name] [/Switch] [/Date] [/Descripton] [/Work]
+<command> FileName [/Id] [/Name] [/Switch] [/Date] [/Work] [/Descripton]
 
 
 FileName              The name of the file
@@ -10,7 +10,8 @@ FileName              The name of the file
                       should look good in the output.
 [/Switch|/S]          Force it!
 [/Date|/Da]           Effective date
-[/Descripton|/De]     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 [/Work|/W]            
+[/Descripton|/De]     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
