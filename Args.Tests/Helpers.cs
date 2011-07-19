@@ -4,22 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Linq.Expressions;
+using Args;
 using Args.Help;
 
 namespace Args.Tests
 {
     internal static class Helpers
     {
-        internal static MemberInfo GetMemberInfoFromExpression<T,TReturn>(this Expression<Func<T, TReturn>> expression)
-        {
-            var member = expression.Body as MemberExpression;
-            if (member == null) throw new InvalidOperationException("Only member access expressions may be used.");
-            return member.Member;
-        }
-
         internal static IMemberBindingDefinition<T> GetMemberBindingDefinitionFor<T,TReturn>(this IEnumerable<IMemberBindingDefinition<T>> source, Expression<Func<T,TReturn>> expression)
         {
-            return source.Single(m => m.MemberInfo == expression.GetMemberInfoFromExpression());
+            return source.Single(m =>
+                    m.MemberInfo.Name == expression.GetMemberInfoFromExpression().Name
+                );
         }
     }
 
@@ -35,6 +31,15 @@ namespace Args.Tests
         public override string GetHelpText()
         {
             return helpText;
+        }
+    }
+
+    public class SimpleConverter : IArgsTypeConverter
+    {
+
+        public object Convert(string value)
+        {
+            return value.Length;
         }
     }
 }

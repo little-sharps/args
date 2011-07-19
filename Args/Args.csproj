@@ -40,12 +40,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-	<DocumentationFile>bin\Release35\Args.xml</DocumentationFile>
+    <DocumentationFile>bin\Release35\Args.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArgsMemberSwitchAttribute.cs" />
     <Compile Include="ArgsModelAttribute.cs" />
     <Compile Include="ArgsTypeConverter.cs" />
+    <Compile Include="ArgsTypeConverterAttribute.cs" />
     <Compile Include="ArgsTypeResolver.cs" />
     <Compile Include="BindingDefinitionException.cs" />
     <Compile Include="Configuration.cs" />

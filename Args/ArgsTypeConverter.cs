@@ -8,8 +8,8 @@ namespace Args
 {
     internal class ArgsTypeConverter : TypeConverter
     {
-        private readonly Type Type;
-        private readonly IArgsTypeConverter Converter;
+        internal readonly Type Type;
+        internal readonly IArgsTypeConverter Converter;
 
         public ArgsTypeConverter(Type type, IArgsTypeConverter converter)
         {

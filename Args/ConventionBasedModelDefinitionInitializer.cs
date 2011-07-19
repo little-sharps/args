@@ -45,6 +45,10 @@ namespace Args
                 var typeConverterAttribute = memberAttributes.OfType<TypeConverterAttribute>().SingleOrDefault();
 
                 if (typeConverterAttribute != null) memberBinding.TypeConverter = (TypeConverter)ArgsTypeResolver.Current.GetService(Type.GetType(typeConverterAttribute.ConverterTypeName));
+
+                var argsTypeConverterAttribute = memberAttributes.OfType<ArgsTypeConverterAttribute>().SingleOrDefault();
+
+                if (argsTypeConverterAttribute != null) memberBinding.TypeConverter = new ArgsTypeConverter(member.GetDeclaredType(), (IArgsTypeConverter)ArgsTypeResolver.Current.GetService(argsTypeConverterAttribute.ArgsTypeConverterType));
             }
 
             init.SetOrdinalArguments(ordinalArguments.Select(a => a.Value));

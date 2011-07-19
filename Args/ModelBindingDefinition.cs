@@ -68,9 +68,9 @@ namespace Args
         {
             MemberBindingDefinition<TModel> returnValue;
 
-            if (Members.TryGetValue(member, out returnValue) == false) return null;
-
-            return returnValue;
+            var memberPair = Members.Where(m => m.Key.Name == member.Name);
+            
+            return memberPair.Any() ? memberPair.First().Value : null;
         }
 
         #region Binding Methods
@@ -92,9 +92,9 @@ namespace Args
 
             for (var i = 0; i < OrdinalArguments.Count; i++)
             {
-                MemberBindingDefinition<TModel> member;
+                MemberBindingDefinition<TModel> member = (MemberBindingDefinition<TModel>)GetMemberBindingDefinition(OrdinalArguments[i]);
 
-                if (Members.TryGetValue(OrdinalArguments[i], out member) == false)
+                if (member == null)
                     throw new BindingDefinitionException(String.Format("Member {0} in {1} does not have a BindingDefinition defined.", OrdinalArguments[i].Name, typeof(TModel).FullName));
 
 

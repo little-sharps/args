@@ -37,7 +37,7 @@ namespace Args
 
         public MemberBindingDefinition(MemberInfo memberInfo, ModelBindingDefinition<TModel> parent)
         {
-            if (memberInfo.DeclaringType != typeof(TModel)) throw new InvalidOperationException(String.Format("memberInfo must be from type {0}", typeof(TModel).FullName));
+            if (memberInfo.DeclaringType.IsAssignableFrom(typeof(TModel)) == false) throw new InvalidOperationException(String.Format("memberInfo must be from type {0}", typeof(TModel).FullName));
             MemberInfo = memberInfo;
             Parent = parent;
             SwitchValues = new Collection<string>();
