@@ -8,7 +8,7 @@ Args uses [Semantic Versioning] (http://semver.org/)
 Release Notes
 --------
 
-__Version 1.0.4__
+__Version 1.0.4__ 
 _2011/10/17_
 
 - Bug Fixes
@@ -16,26 +16,26 @@ _2011/10/17_
   - Issue #7: Arguments class cannot have super class
 - Using latest version of NuGet.exe
 
-__Version 1.0.3__
+__Version 1.0.3__ 
 _2011/04/06_
 
 - Bug Fixes
   - Issue #3: Switch arguments not working when last, or only, argument
 - Using latest version of NuGet.exe
 
-__Version 1.0.2__
+__Version 1.0.2__ 
 _2011/03/31_
 
 - Bug Fixes
   - Issue #2: Lambda expression causing stack overflow exception
 
 
-__Version 1.0.1__
+__Version 1.0.1__ 
 _2011/03/01_
 
 - No code change, only package changes for NuGet to properly display icon
 
-__Version 1.0.0__
+__Version 1.0.0__ 
 _2011/03/01_
 
 - Initial Release
