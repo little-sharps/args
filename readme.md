@@ -23,7 +23,7 @@ Features
 - Attributes used from `System.ComponentModel` namespace whenever possible
 - Available via [NuGet](http://nuget.org/List/Packages/Args)
 
-[View Release Notes](blob/master/releasenotes.md)
+[View Release Notes](args/blob/master/releasenotes.md)
 
 Example
 --------
