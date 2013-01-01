@@ -83,12 +83,25 @@ namespace Args
             return model;
         }
 
+        private void EnsureCorrectNumberOfOrdinalArguments(IEnumerable<string> ordinalArgs)
+        {
+            if (OrdinalArguments.Any())
+            {                
+                if (OrdinalArguments.Count == ordinalArgs.Count()) return;
+
+                var hasCollection = OrdinalArguments.Last().GetDeclaredType().GetGenericIEnumerable() != null;
+
+                if(hasCollection && ordinalArgs.Count() >= OrdinalArguments.Count) return;
+
+                throw new InvalidOperationException(Properties.Resources.IncorrectNumberOfOrdinalArgumentsMessage);
+            }
+        }
+
         public virtual void BindModel(TModel model, IEnumerable<string> args)
         {
             var unnamedArgs = args.TakeWhile(s => IsSwitch(s) == false);
 
-            if (unnamedArgs.Count() != OrdinalArguments.Count)
-                throw new InvalidArgsFormatException(String.Format("Model requires exactly {0} arguments before the first switch; {1} was/were provided", OrdinalArguments.Count, unnamedArgs.Count()));
+            EnsureCorrectNumberOfOrdinalArguments(unnamedArgs);
 
             for (var i = 0; i < OrdinalArguments.Count; i++)
             {
@@ -97,8 +110,11 @@ namespace Args
                 if (member == null)
                     throw new BindingDefinitionException(String.Format("Member {0} in {1} does not have a BindingDefinition defined.", OrdinalArguments[i].Name, typeof(TModel).FullName));
 
-
-                HandleInputs(new[] { unnamedArgs.Skip(i).First() }, model, member);
+                if (OrdinalArguments.Count != i + 1)
+                    HandleInputs(new[] { unnamedArgs.Skip(i).First() }, model, member);
+                else
+                    //last ordinal, send remaining ordinal arguments
+                    HandleInputs(unnamedArgs.Skip(i), model, member);
             }
 
             var switchedArguments = args.Skip(unnamedArgs.Count());
@@ -118,6 +134,9 @@ namespace Args
                 }
                 else
                 {
+                    if (member.Value.Required == true)
+                        throw new InvalidOperationException(String.Format(Properties.Resources.RequiredParameterNotProvidedMessage, member.Value.MemberInfo.Name));
+
                     //switch not provided
                     if (member.Value.DefaultValue != null)
                         member.Key.SetValue(model, member.Value.DefaultValue);
@@ -141,6 +160,9 @@ namespace Args
 
         public void AddOrdinalArgument(MemberInfo member)
         {
+            if (OrdinalArguments.Any(m => m.GetDeclaredType().GetGenericIEnumerable() != null))
+                throw new InvalidOperationException(Properties.Resources.OnlyLastOridnalArgumentCollectionMessage);
+
             GetOrCreateMemberBindingDefinition(member);
             OrdinalArguments.Add(member);
         }

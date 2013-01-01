@@ -54,6 +54,18 @@ namespace Args
             return this;
         }
 
+        public FluentMemberBindingConfiguration<TModel> IsRequired()
+        {
+            Source.Required = true;
+            return this;
+        }
+
+        public FluentMemberBindingConfiguration<TModel> IsNotRequired()
+        {
+            Source.Required = false;
+            return this;
+        }
+
         public FluentModelBindingConfiguration<TModel> ForModel()
         {
             return new FluentModelBindingConfiguration<TModel>(Source.Parent);

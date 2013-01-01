@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Args
 {
@@ -49,6 +50,8 @@ namespace Args
                 var argsTypeConverterAttribute = memberAttributes.OfType<ArgsTypeConverterAttribute>().SingleOrDefault();
 
                 if (argsTypeConverterAttribute != null) memberBinding.TypeConverter = new ArgsTypeConverter(member.GetDeclaredType(), (IArgsTypeConverter)ArgsTypeResolver.Current.GetService(argsTypeConverterAttribute.ArgsTypeConverterType));
+
+                memberBinding.Required = memberAttributes.OfType<RequiredAttribute>().Any();
             }
 
             init.SetOrdinalArguments(ordinalArguments.Select(a => a.Value));

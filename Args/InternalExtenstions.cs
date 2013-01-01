@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Collections;
 
 namespace Args
 {
@@ -48,6 +50,22 @@ namespace Args
         {
             return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
+
+        /// <summary>
+        /// Returns a type that represents the implemented IEnumberable&lt;&gt; (e.g. IEnumerable&lt;string&gt;)
+        /// Returns null if the provided type is System.String
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>Returns null if none is defined</returns>
+        internal static Type GetGenericIEnumerable(this Type type)
+        {
+            if (type == typeof(string)) return null;
+
+            return type.GetInterfaces()
+                    .Union(new[] { type })
+                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                    .SingleOrDefault();
+        }
     }
 
     internal static class CollectionExtensions
@@ -80,6 +98,22 @@ namespace Args
             var member = expression.Body as MemberExpression;
             if (member == null) throw new InvalidOperationException("Only member access expressions may be used.");
             return member.Member;
+        }
+    }
+
+    internal static class ArrayExtensions
+    {
+        internal static Array Convert<T>(this T[] source, Type arrayType)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            if (arrayType == null) throw new ArgumentNullException("arrayType");
+
+            var returnvalue = Array.CreateInstance(arrayType, source.Length);
+
+            for(var i = 0; i < source.Length; i++)
+                returnvalue.SetValue(source[i], i);
+
+            return returnvalue;
         }
     }
 }

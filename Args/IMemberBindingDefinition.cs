@@ -17,6 +17,7 @@ namespace Args
         object DefaultValue { get; set; }
         bool CanHandleSwitch(string s);
         string HelpText { get; set; }
+        bool Required { get; set; }
     }
 
     public static class MemberBindingDefinitionExtensions

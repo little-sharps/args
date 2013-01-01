@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Collections;
 
 namespace Args
 {
@@ -29,6 +30,8 @@ namespace Args
 
         public virtual object DefaultValue { get; set; }
 
+        public virtual bool Required { get; set; }
+
         public virtual bool CanHandleSwitch(string s)
         {
             return SwitchValues.Contains(s, Parent.StringComparer);
@@ -45,19 +48,55 @@ namespace Args
 
         public virtual object CoerceValue(IEnumerable<string> value, TModel model)
         {
-            var joinedValue = String.Join(" ", value.ToArray());
+            var declaredType = MemberInfo.GetDeclaredType();
+            object newValue = null;
 
-            var typeConverter = TypeConverter ?? Parent.TryGetTypeConverter(MemberInfo.GetDeclaredType()) ?? GetDefaultTypeConveter(MemberInfo.GetDeclaredType());
-            
+            var typeConverter = TypeConverter ?? Parent.TryGetTypeConverter(declaredType) ?? GetDefaultTypeConveter(declaredType);
+
             if (typeConverter.CanConvertFrom(typeof(string)) == false)
-                throw new InvalidOperationException(String.Format(Properties.Resources.TypeConverterNotFoundMessage, joinedValue.GetType().Name, MemberInfo.GetDeclaredType().Name));
+            {
+                //special case to handle collections
+                //declared type must be or implement IEnumerable<> (directly or indirectly)
+                //declared type cannot be string (which implements IEnumerable<char>)
+                var genericIEnumerable = declaredType.GetGenericIEnumerable();
 
-            if (String.IsNullOrEmpty(joinedValue) && MemberInfo.GetDeclaredType() == typeof(bool))
-                joinedValue = true.ToString();
+                if (declaredType != typeof(string) && genericIEnumerable != null)
+                {
+                    var collectionType = genericIEnumerable.GetGenericArguments()[0];
+                    typeConverter = TypeConverter ?? Parent.TryGetTypeConverter(collectionType) ?? GetDefaultTypeConveter(collectionType);
 
-            var newValue = typeConverter.ConvertFrom(joinedValue);
+                    if (typeConverter.CanConvertFrom(typeof(string)) == false)
+                        throw new InvalidOperationException(String.Format(Properties.Resources.TypeConverterNotFoundMessage, typeof(string).Name, collectionType.Name));
 
-            if (newValue == MemberInfo.GetDeclaredType().GetDefaultValue() && DefaultValue != null) newValue = DefaultValue;
+                    var convertedValues = value.Select(typeConverter.ConvertFrom);
+
+                    if (declaredType.IsAssignableFrom(collectionType.MakeArrayType()))
+                        newValue = convertedValues.ToArray().Convert(collectionType);
+                    else if (typeof(IList).IsAssignableFrom(declaredType) || typeof(ICollection<>).MakeGenericType(collectionType).IsAssignableFrom(declaredType))
+                    {
+                        newValue = ArgsTypeResolver.Current.GetService(declaredType);
+                        var methodInfo = declaredType.GetMethod("Add");
+
+                        if (methodInfo == null) throw new InvalidOperationException(String.Format(Properties.Resources.AddMethodNotFoundMessage, declaredType.Name));
+
+                        foreach (var item in convertedValues)
+                            methodInfo.Invoke(newValue, new[] { item });
+                    }
+                }
+                else
+                    throw new InvalidOperationException(String.Format(Properties.Resources.TypeConverterNotFoundMessage, typeof(string).Name, declaredType.Name));
+            }
+            else
+            {
+                var joinedValue = String.Join(" ", value.ToArray());
+
+                if (String.IsNullOrEmpty(joinedValue) && declaredType == typeof(bool))
+                    joinedValue = true.ToString();
+
+                newValue = typeConverter.ConvertFrom(joinedValue);
+            }
+
+            if (newValue == declaredType.GetDefaultValue() && DefaultValue != null) newValue = DefaultValue;
 
             return newValue;
         }

@@ -20,7 +20,7 @@ namespace Args
         {
             try
             {
-                return Activator.CreateInstance(serviceType);
+                return Activator.CreateInstance(serviceType, true);
             }
             catch (MissingMethodException ex)
             {

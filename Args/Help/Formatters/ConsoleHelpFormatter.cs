@@ -48,7 +48,9 @@ namespace Args.Help.Formatters
 
         private void WriteArgumentDescriptions(ModelHelp modelHelp)
         {
-            var items = modelHelp.Members.OrderByDescending(m => m.OrdinalIndex.HasValue)
+            var items = modelHelp.Members
+                .Where(m => String.IsNullOrEmpty(m.HelpText) == false)
+                .OrderByDescending(m => m.OrdinalIndex.HasValue)
                 .ThenBy(m => m.OrdinalIndex)
                 .ToDictionary(ks => ks.OrdinalIndex.HasValue ? ks.Name : GetFullSwitchString(modelHelp.SwitchDelimiter, ks.Switches), es => es.HelpText);
 
@@ -136,7 +138,8 @@ namespace Args.Help.Formatters
                 .Select(m => m.Name)
                 .Concat(modelHelp.Members
                     .Where(m => m.OrdinalIndex.HasValue == false)
-                    .Select(m => String.Format("[{0}{1}]", modelHelp.SwitchDelimiter, m.Switches.First())));
+                    .Select(m => String.Format("[{0}]", String.Join("|", m.Switches.Select(s => modelHelp.SwitchDelimiter + s).ToArray()))));
+
 
             //TODO: Figure out actual command name?
             var dictionary = new Dictionary<string, string>
