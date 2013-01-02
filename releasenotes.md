@@ -7,6 +7,20 @@ Args uses [Semantic Versioning] (http://semver.org/)
 
 Release Notes
 --------
+_Version 1.1.0_
+_2013/1/2_
+
+-Feature Enhancements
+  - Issue #8: Args now respects the `RequiredAttribute`
+  - Issue #9: In the help output, arguments are only listed in the description area if there is help text provided
+  - Issue #13: The default type resolver will use non-public parameterless constructors
+  - Issue #14: Args supports collections (details below)
+
+If the declared type of an argument implements `IEnumerable<T>`, Args will take each argument and convert it to type `T`.
+For ordinal parameters, this behavior is only supported for the last ordinal. `String` is a special case (it implements `IEnumerable<char>`) and is ignored.
+
+If the declared type can handle an array being assigned to it, then an array is created and assigned.
+Otherwise, the type must implement `IList` or `ICollection<T>`, and an instance of the collection is created and the `Add` method is invoked for each item.
 
 __Version 1.0.4__ 
 _2011/10/17_
