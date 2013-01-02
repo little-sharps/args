@@ -15,6 +15,7 @@ Features
   - Comes packaged with a console formatter
   - Writing your own is as simple as implementing `IHelpFormatter`
 - Out-of-the-box support for type conversion of all "simple" .NET types
+- Support for `IEnumerable<T>`
 - Enum support, including flags support
 - Use existing TypeConverters for custom types
   - Can also implement a simple class for type conversion
