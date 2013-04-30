@@ -9,11 +9,12 @@ namespace Args
     /// Holds a static reference to an IServiceProvider.  If one is not specified, a default one will be use which simply uses Activator.CreateInstance and assumes a default constructor
     /// </summary>
     public class ArgsTypeResolver : IServiceProvider
-    {
-        private static IServiceProvider current;
-        public static IServiceProvider Current
+    {        
+        public static IServiceProvider Current { get; set; }
+
+        static ArgsTypeResolver()
         {
-            get { return current = current ?? new ArgsTypeResolver(); }
+            ArgsTypeResolver.Current = new ArgsTypeResolver();
         }
 
         public object GetService(Type serviceType)
