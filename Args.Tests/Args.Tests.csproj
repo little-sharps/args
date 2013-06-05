@@ -57,6 +57,7 @@
     <Compile Include="ConventionModelBindingTest.cs" />
     <Compile Include="EnumerableTest.cs" />
     <Compile Include="FluentConfigurationTests.cs" />
+    <Compile Include="GuidParsingTests.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="FluentModelBindingTests.cs" />
     <Compile Include="HelpProviderTest.cs" />

@@ -123,7 +123,7 @@ namespace Args
             foreach(var member in namedMembers)
             {
                 //find a suitable switch
-                var argument = switchedArguments.SkipWhile(a => a.Length <= SwitchDelimiter.Length || member.Value.CanHandleSwitch(a.Substring(SwitchDelimiter.Length)) == false);
+                var argument = switchedArguments.SkipWhile(a => a.StartsWith(SwitchDelimiter) == false || a.Length <= SwitchDelimiter.Length || member.Value.CanHandleSwitch(a.Substring(SwitchDelimiter.Length)) == false);
 
                 if (argument.Any())
                 {
