@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Args</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <authors>Brian Ball</authors>
     <description>Command line parser for .NET. Parses command line parameters into custom POCO objects.</description>
     <language>en-US</language>
