@@ -7,10 +7,17 @@ Args uses [Semantic Versioning] (http://semver.org/)
 
 Release Notes
 --------
+_Version 1.1.1_
+_2013/6/8_
+
+- Bug Fixes
+ - Issue #17: ArgsTypeResolver: How to set the "Current" static property
+ - Issue #19: Error in parsing
+
 _Version 1.1.0_
 _2013/1/2_
 
--Feature Enhancements
+- Feature Enhancements
   - Issue #8: Args now respects the `RequiredAttribute`
   - Issue #9: In the help output, arguments are only listed in the description area if there is help text provided
   - Issue #13: The default type resolver will use non-public parameterless constructors
