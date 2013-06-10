@@ -9,7 +9,7 @@ Features
 - Conventions-based configuration
 - Fluent API
 - POCO classes
-- Both swithced arguments and ordinal arguments are supported
+- Both switched arguments and ordinal arguments are supported
 - Interfaces for most classes to allow for easy mocking
 - Auto-generated help document
   - Comes packaged with a console formatter
