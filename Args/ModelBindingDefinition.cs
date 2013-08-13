@@ -93,7 +93,7 @@ namespace Args
 
                 if(hasCollection && ordinalArgs.Count() >= OrdinalArguments.Count) return;
 
-                throw new InvalidOperationException(Properties.Resources.IncorrectNumberOfOrdinalArgumentsMessage);
+                throw new InvalidOperationException(string.Format(Properties.Resources.IncorrectNumberOfOrdinalArgumentsMessage, OrdinalArguments.Count));
             }
         }
 
