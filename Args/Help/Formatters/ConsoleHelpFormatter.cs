@@ -52,12 +52,24 @@ namespace Args.Help.Formatters
                 .Where(m => String.IsNullOrEmpty(m.HelpText) == false)
                 .OrderByDescending(m => m.OrdinalIndex.HasValue)
                 .ThenBy(m => m.OrdinalIndex)
-                .ToDictionary(ks => ks.OrdinalIndex.HasValue ? ks.Name : GetFullSwitchString(modelHelp.SwitchDelimiter, ks.Switches), es => es.HelpText);
+                .ToDictionary(ks => ks.OrdinalIndex.HasValue ? ks.Name : GetFullSwitchString(modelHelp.SwitchDelimiter, ks.Switches), es => GetFullHelpTextForMember(es));
 
             WriteJustifiedOutput(items, ArgumentDescriptionPadding);
         }
 
-        protected virtual string GetFullSwitchString(string switchDelimiter, IEnumerable<string> switches)
+	    private static string GetFullHelpTextForMember(MemberHelp es)
+	    {
+			if (!string.IsNullOrWhiteSpace(es.DefaultValue) &&
+			    //It's misleading to say "default true"... more natural to say "on by default", but this just avoids bools altogether for now
+			    es.DefaultValue != false.ToString() && es.DefaultValue != true.ToString())
+			{
+				return string.Format("{0} (default {1})", es.HelpText,es.DefaultValue);
+			}
+			
+			return es.HelpText;
+	    }
+
+	    protected virtual string GetFullSwitchString(string switchDelimiter, IEnumerable<string> switches)
         {
             var values = String.Join("|", switches.Select(s => switchDelimiter + s).ToArray());
 
