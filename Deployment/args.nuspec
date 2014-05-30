@@ -8,7 +8,7 @@
     <language>en-US</language>
     <projectUrl>https://github.com/littlebits/args</projectUrl>
     <licenseUrl>https://github.com/littlebits/args</licenseUrl>
-	<iconUrl>http://littlebits.github.com/args/console32.png</iconUrl>
+	<iconUrl>http://little-sharps.github.io/args/console32.png</iconUrl>
 	<tags>littlebits command line parser parse arguments args</tags>
   </metadata>
   <files>
