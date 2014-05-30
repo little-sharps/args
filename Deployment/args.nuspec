@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Args</id>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <authors>Brian Ball</authors>
     <description>Command line parser for .NET. Parses command line parameters into custom POCO objects.</description>
     <language>en-US</language>
@@ -14,7 +14,7 @@
   <files>
     <file src="..\Args\bin\Release\*.dll" target="lib\Net40" />
 	<file src="..\Args\bin\Release\*.xml" target="lib\Net40" />
-	<!--<file src="..\Args\bin\Release35\*.dll" target="lib\Net35" />
-	<file src="..\Args\bin\Release35\*.xml" target="lib\Net35" />-->
+	<file src="..\Args-3.5\bin\Release\*.dll" target="lib\Net35" />
+	<file src="..\Args-3.5\bin\Release\*.xml" target="lib\Net35" />
   </files>
 </package>
