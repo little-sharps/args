@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{69D5F2B0-2D92-41DB-9A74-DA7AFC1E0C0D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Args</RootNamespace>
+    <AssemblyName>Args</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Args\ArgsMemberSwitchAttribute.cs">
+      <Link>ArgsMemberSwitchAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\ArgsModelAttribute.cs">
+      <Link>ArgsModelAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\ArgsTypeConverter.cs">
+      <Link>ArgsTypeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\ArgsTypeConverterAttribute.cs">
+      <Link>ArgsTypeConverterAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\ArgsTypeResolver.cs">
+      <Link>ArgsTypeResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\BindingDefinitionException.cs">
+      <Link>BindingDefinitionException.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\Configuration.cs">
+      <Link>Configuration.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\ConventionBasedModelDefinitionInitializer.cs">
+      <Link>ConventionBasedModelDefinitionInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\FluentMemberBindingConfiguration.cs">
+      <Link>FluentMemberBindingConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\FluentModelBindingConfiguration.cs">
+      <Link>FluentModelBindingConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\Help\Formatters\ConsoleHelpFormatter.cs">
+      <Link>Help\Formatters\ConsoleHelpFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\Help\Formatters\IHelpFormatter.cs">
+      <Link>Help\Formatters\IHelpFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\Help\HelpProvider.cs">
+      <Link>Help\HelpProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\Help\IHelpProvider.cs">
+      <Link>Help\IHelpProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\Help\MemberHelp.cs">
+      <Link>Help\MemberHelp.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\Help\ModelHelp.cs">
+      <Link>Help\ModelHelp.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\Help\ResourceMemberHelpAttributeBase.cs">
+      <Link>Help\ResourceMemberHelpAttributeBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\IArgsConfiguration.cs">
+      <Link>IArgsConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\IArgsTypeConverter.cs">
+      <Link>IArgsTypeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\IInitializeModelBindingDefinition.cs">
+      <Link>IInitializeModelBindingDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\IMemberBindingDefinition.cs">
+      <Link>IMemberBindingDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\IModelBindingDefinition.cs">
+      <Link>IModelBindingDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\InternalExtenstions.cs">
+      <Link>InternalExtenstions.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\InvalidArgsFormatException.cs">
+      <Link>InvalidArgsFormatException.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\LambdaArgsTypeConverter.cs">
+      <Link>LambdaArgsTypeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\MemberBindingDefinition.cs">
+      <Link>MemberBindingDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\ModelBindingDefinition.cs">
+      <Link>ModelBindingDefinition.cs</Link>
+    </Compile>
+    <Compile Include="..\Args\Properties\Resources.Designer.cs">
+      <Link>Properties\Resources.Designer.cs</Link>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Args\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

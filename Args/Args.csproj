@@ -32,7 +32,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <DocumentationFile>bin\Release\Args.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release35|AnyCPU'">
+  <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release35|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release35\</OutputPath>
@@ -41,7 +41,7 @@
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <DocumentationFile>bin\Release35\Args.xml</DocumentationFile>
-  </PropertyGroup>
+  </PropertyGroup>-->
   <ItemGroup>
     <Compile Include="ArgsMemberSwitchAttribute.cs" />
     <Compile Include="ArgsModelAttribute.cs" />
@@ -93,10 +93,10 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>-->
-  <Target Name="AfterBuild">
-    <!-- attrib commands are a hack to get around an issue when issuing a rebuild in Visual Studio that caused the .dll from the 4.0 version to disappear when compilation was complete -->
+  <!--<Target Name="AfterBuild">
+    --><!-- attrib commands are a hack to get around an issue when issuing a rebuild in Visual Studio that caused the .dll from the 4.0 version to disappear when compilation was complete --><!--
     <Exec Command="attrib +r &quot;$(ProjectDir)$(OutputPath)$(AssemblyName).dll&quot;" />
     <MSBuild Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Targets="Rebuild" Projects="$(MSBuildProjectFile)" Properties="Configuration=Release35" />
     <Exec Command="attrib -r &quot;$(ProjectDir)$(OutputPath)$(AssemblyName).dll&quot;" />
-  </Target>
+  </Target>-->
 </Project>

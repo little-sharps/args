@@ -14,7 +14,7 @@
   <files>
     <file src="..\Args\bin\Release\*.dll" target="lib\Net40" />
 	<file src="..\Args\bin\Release\*.xml" target="lib\Net40" />
-	<file src="..\Args\bin\Release35\*.dll" target="lib\Net35" />
-	<file src="..\Args\bin\Release35\*.xml" target="lib\Net35" />
+	<!--<file src="..\Args\bin\Release35\*.dll" target="lib\Net35" />
+	<file src="..\Args\bin\Release35\*.xml" target="lib\Net35" />-->
   </files>
 </package>

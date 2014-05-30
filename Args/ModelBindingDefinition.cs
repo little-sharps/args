@@ -66,8 +66,6 @@ namespace Args
 
         public virtual IMemberBindingDefinition<TModel> GetMemberBindingDefinition(MemberInfo member)
         {
-            MemberBindingDefinition<TModel> returnValue;
-
             var memberPair = Members.Where(m => m.Key.Name == member.Name);
             
             return memberPair.Any() ? memberPair.First().Value : null;
