@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <DocumentationFile>bin\Release\Args.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release35|AnyCPU'">
     <DebugType>pdbonly</DebugType>
@@ -94,7 +95,9 @@
   <Target Name="BeforeBuild">
   </Target>-->
   <!--<Target Name="AfterBuild">
-    --><!-- attrib commands are a hack to get around an issue when issuing a rebuild in Visual Studio that caused the .dll from the 4.0 version to disappear when compilation was complete --><!--
+    -->
+  <!-- attrib commands are a hack to get around an issue when issuing a rebuild in Visual Studio that caused the .dll from the 4.0 version to disappear when compilation was complete -->
+  <!--
     <Exec Command="attrib +r &quot;$(ProjectDir)$(OutputPath)$(AssemblyName).dll&quot;" />
     <MSBuild Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Targets="Rebuild" Projects="$(MSBuildProjectFile)" Properties="Configuration=Release35" />
     <Exec Command="attrib -r &quot;$(ProjectDir)$(OutputPath)$(AssemblyName).dll&quot;" />
