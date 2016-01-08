@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Collections;
+using System.Globalization;
 
 namespace Args
 {
@@ -68,7 +69,7 @@ namespace Args
                     if (typeConverter.CanConvertFrom(typeof(string)) == false)
                         throw new InvalidOperationException(String.Format(Properties.Resources.TypeConverterNotFoundMessage, typeof(string).Name, collectionType.Name));
 
-                    var convertedValues = value.Select(typeConverter.ConvertFrom);
+                    var convertedValues = value.Select(v => typeConverter.ConvertFrom(null, CultureInfo.InvariantCulture, v));
 
                     if (declaredType.IsAssignableFrom(collectionType.MakeArrayType()))
                         newValue = convertedValues.ToArray().Convert(collectionType);
@@ -93,7 +94,7 @@ namespace Args
                 if (String.IsNullOrEmpty(joinedValue) && declaredType == typeof(bool))
                     joinedValue = true.ToString();
 
-                newValue = typeConverter.ConvertFrom(joinedValue);
+                newValue = typeConverter.ConvertFrom(null, CultureInfo.InvariantCulture, joinedValue);
             }
 
             if (newValue == declaredType.GetDefaultValue() && DefaultValue != null) newValue = DefaultValue;
