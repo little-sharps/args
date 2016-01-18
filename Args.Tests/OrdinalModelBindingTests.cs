@@ -2,6 +2,7 @@
 using SharpTestsEx;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -47,7 +48,7 @@ namespace Args.Tests
 
             c.Name.Should().Be.EqualTo(args[0]);
             c.Count.Should().Be.EqualTo(int.Parse(args[1]));
-            c.Value.Should().Be.EqualTo(decimal.Parse(args[2]));
+            c.Value.Should().Be.EqualTo(decimal.Parse(args[2], CultureInfo.InvariantCulture));
         }
 
         [Test]
