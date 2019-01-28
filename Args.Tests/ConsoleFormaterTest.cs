@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Args.Help.Formatters;
 using NUnit.Framework;
-using System.IO;
-using Args.Help.Formatters;
 using SharpTestsEx;
+using System;
+
 
 namespace Args.Tests
 {

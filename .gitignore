@@ -29,3 +29,4 @@ packages/NUnit.2.5.7.10213/Tools/nunit-agent-x86.exe.config
 packages/NUnit.2.5.7.10213/Tools/nunit-agent.exe.config
 packages/NUnit.2.5.7.10213/Tools/nunit-console.exe.config
 packages/NUnit.2.5.7.10213/Tools/nunit-console-x86.exe.config
+/.vs

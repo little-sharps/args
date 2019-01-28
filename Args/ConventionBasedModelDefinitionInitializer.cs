@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
 
 namespace Args
 {
@@ -14,8 +14,17 @@ namespace Args
     {
         public void Initialize<TModel>(IModelBindingDefinition<TModel> init)
         {
-            var modelAttribute = typeof(TModel).GetCustomAttributes(true).OfType<ArgsModelAttribute>().SingleOrDefault() ?? ArgsModelAttribute.Default;
-            var modelDescriptionAttribute = typeof(TModel).GetCustomAttributes(true).OfType<DescriptionAttribute>().SingleOrDefault();
+            var modelAttribute = typeof(TModel)
+#if !NET_FRAMEWORK
+                .GetTypeInfo()
+#endif
+                .GetCustomAttributes(true).OfType<ArgsModelAttribute>().SingleOrDefault() ?? ArgsModelAttribute.Default;
+
+            var modelDescriptionAttribute = typeof(TModel)
+#if !NET_FRAMEWORK
+                .GetTypeInfo()
+#endif
+                .GetCustomAttributes(true).OfType<DescriptionAttribute>().SingleOrDefault();
 
             init.SwitchDelimiter = modelAttribute.SwitchDelimiter;
             init.StringComparer = modelAttribute.StringComparer;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Collections;
 
 namespace Args
 {
@@ -48,7 +47,11 @@ namespace Args
     {
         internal static object GetDefaultValue(this Type type)
         {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
+            return type
+#if !NET_FRAMEWORK
+                .GetTypeInfo()
+#endif
+                .IsValueType ? Activator.CreateInstance(type) : null;
         }
 
         /// <summary>
@@ -63,7 +66,15 @@ namespace Args
 
             return type.GetInterfaces()
                     .Union(new[] { type })
-                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                    .Where(i => i
+#if !NET_FRAMEWORK
+                .GetTypeInfo()
+#endif
+                    .IsGenericType && i
+#if !NET_FRAMEWORK
+                .GetTypeInfo()
+#endif
+                    .GetGenericTypeDefinition() == typeof(IEnumerable<>))
                     .SingleOrDefault();
         }
     }

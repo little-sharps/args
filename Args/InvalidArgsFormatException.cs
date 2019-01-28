@@ -8,9 +8,12 @@ namespace Args
         public InvalidArgsFormatException() { }
         public InvalidArgsFormatException(string message) : base(message) { }
         public InvalidArgsFormatException(string message, Exception inner) : base(message, inner) { }
+
+#if NET_FRAMEWORK
         protected InvalidArgsFormatException(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context)
             : base(info, context) { }
+#endif
     }
 }

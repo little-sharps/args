@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Args
 {
@@ -35,10 +32,12 @@ namespace Args
                         return StringComparer.CurrentCulture;
                     case StringComparison.CurrentCultureIgnoreCase:
                         return StringComparer.CurrentCultureIgnoreCase;
+#if NET_FRAKEWORK
                     case StringComparison.InvariantCulture:
                         return StringComparer.InvariantCulture;
                     case StringComparison.InvariantCultureIgnoreCase:
                         return StringComparer.InvariantCultureIgnoreCase;
+#endif
                     case StringComparison.Ordinal:
                         return StringComparer.Ordinal;
                     case StringComparison.OrdinalIgnoreCase:

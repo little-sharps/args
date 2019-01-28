@@ -1,105 +1,51 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4B942FFC-22E5-486B-A3D7-D5EDFFF016F8}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Args</RootNamespace>
-    <AssemblyName>Args</AssemblyName>
-    <FileAlignment>512</FileAlignment>
+    <TargetFrameworks>net35;net40;netstandard1.3</TargetFrameworks>
+    <OutputTypeEx>Library</OutputTypeEx>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeSource>true</IncludeSource>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.2.0</Version>
+    <Authors>Brian Ball</Authors>
+    <Company />
+    <Product />
+    <Description>Command line parser for .NET. Parses command line parameters into custom POCO objects.</Description>
+    <PackageLicenseUrl>https://github.com/littlebits/args</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/littlebits/args</PackageProjectUrl>
+    <PackageIconUrl>http://little-sharps.github.io/args/console32.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/littlebits/args</RepositoryUrl>
+    <RepositoryType />
+    <PackageTags>littlebits command line parser parse arguments args</PackageTags>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <DocumentationFile>bin\Release\Args.xml</DocumentationFile>
-    <NoWarn>1591</NoWarn>
-  </PropertyGroup>
-  <!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release35|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release35\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <DocumentationFile>bin\Release35\Args.xml</DocumentationFile>
-  </PropertyGroup>-->
+
+  <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard1.3'">
+    <DefineConstants>NET_FRAMEWORK</DefineConstants>    
+  </PropertyGroup>  
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.1.0" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.1.0" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.1.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3'">
+    <Reference Include="System.ComponentModel.DataAnnotations" />    
+  </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="ArgsMemberSwitchAttribute.cs" />
-    <Compile Include="ArgsModelAttribute.cs" />
-    <Compile Include="ArgsTypeConverter.cs" />
-    <Compile Include="ArgsTypeConverterAttribute.cs" />
-    <Compile Include="ArgsTypeResolver.cs" />
-    <Compile Include="BindingDefinitionException.cs" />
-    <Compile Include="Configuration.cs" />
-    <Compile Include="ConventionBasedModelDefinitionInitializer.cs" />
-    <Compile Include="FluentMemberBindingConfiguration.cs" />
-    <Compile Include="FluentModelBindingConfiguration.cs" />
-    <Compile Include="Help\Formatters\ConsoleHelpFormatter.cs" />
-    <Compile Include="Help\Formatters\IHelpFormatter.cs" />
-    <Compile Include="Help\HelpProvider.cs" />
-    <Compile Include="Help\MemberHelp.cs" />
-    <Compile Include="Help\ResourceMemberHelpAttributeBase.cs" />
-    <Compile Include="Help\ModelHelp.cs" />
-    <Compile Include="IArgsConfiguration.cs" />
-    <Compile Include="Help\IHelpProvider.cs" />
-    <Compile Include="IInitializeModelBindingDefinition.cs" />
-    <Compile Include="IMemberBindingDefinition.cs" />
-    <Compile Include="IModelBindingDefinition.cs" />
-    <Compile Include="MemberBindingDefinition.cs" />
-    <Compile Include="ModelBindingDefinition.cs" />
-    <Compile Include="IArgsTypeConverter.cs" />
-    <Compile Include="InternalExtenstions.cs" />
-    <Compile Include="InvalidArgsFormatException.cs" />
-    <Compile Include="LambdaArgsTypeConverter.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>-->
-  <!--<Target Name="AfterBuild">
-    -->
-  <!-- attrib commands are a hack to get around an issue when issuing a rebuild in Visual Studio that caused the .dll from the 4.0 version to disappear when compilation was complete -->
-  <!--
-    <Exec Command="attrib +r &quot;$(ProjectDir)$(OutputPath)$(AssemblyName).dll&quot;" />
-    <MSBuild Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU'" Targets="Rebuild" Projects="$(MSBuildProjectFile)" Properties="Configuration=Release35" />
-    <Exec Command="attrib -r &quot;$(ProjectDir)$(OutputPath)$(AssemblyName).dll&quot;" />
-  </Target>-->
 </Project>

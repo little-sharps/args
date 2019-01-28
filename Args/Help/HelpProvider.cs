@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 
 namespace Args.Help
 {
@@ -21,7 +20,11 @@ namespace Args.Help
 
             if (String.IsNullOrEmpty(modelHelp.HelpText))
             {
-                var helpAttribute = typeof(TModel).GetCustomAttributes(true).OfType<ResourceMemberHelpAttributeBase>().SingleOrDefault();
+                var helpAttribute = typeof(TModel)
+#if !NET_FRAMEWORK
+                .GetTypeInfo()
+#endif
+                    .GetCustomAttributes(true).OfType<ResourceMemberHelpAttributeBase>().SingleOrDefault();
 
                 if (helpAttribute != null) modelHelp.HelpText = helpAttribute.GetHelpText();
             }
