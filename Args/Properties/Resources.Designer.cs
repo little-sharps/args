@@ -41,7 +41,7 @@ namespace Args.Properties {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Args.Properties.Resources", typeof(Resources)
-#if !NET_FRAMEWORK
+#if NETSTANDARD_1_3
                         .GetTypeInfo()
 #endif
                         .Assembly);

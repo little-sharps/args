@@ -19,20 +19,18 @@ namespace Args
         /// <param name="init"></param>
         public void Initialize<TModel>(IModelBindingDefinition<TModel> init)
         {
-            var modelAttribute = typeof(TModel)
-#if !NET_FRAMEWORK
+            var modelAttributes = typeof(TModel)
+#if NETSTANDARD_1_3
                 .GetTypeInfo()
 #endif
-                .GetCustomAttributes(true).OfType<ArgsModelAttribute>().SingleOrDefault() ?? ArgsModelAttribute.Default;
+                .GetCustomAttributes(true);
 
-            var modelDescriptionAttribute = typeof(TModel)
-#if !NET_FRAMEWORK
-                .GetTypeInfo()
-#endif
-                .GetCustomAttributes(true).OfType<DescriptionAttribute>().SingleOrDefault();
+            var argModelAttribute = modelAttributes.OfType<ArgsModelAttribute>().SingleOrDefault() ?? ArgsModelAttribute.Default;
 
-            init.SwitchDelimiter = modelAttribute.SwitchDelimiter;
-            init.StringComparer = modelAttribute.StringComparer;
+            var modelDescriptionAttribute = modelAttributes.OfType<DescriptionAttribute>().SingleOrDefault();
+
+            init.SwitchDelimiter = argModelAttribute.SwitchDelimiter;
+            init.StringComparer = argModelAttribute.StringComparer;
             SortedDictionary<int, MemberInfo> ordinalArguments = new SortedDictionary<int, MemberInfo>();
 
             if (modelDescriptionAttribute != null) init.CommandModelDescription = modelDescriptionAttribute.Description;

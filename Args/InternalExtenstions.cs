@@ -48,7 +48,7 @@ namespace Args
         internal static object GetDefaultValue(this Type type)
         {
             return type
-#if !NET_FRAMEWORK
+#if NETSTANDARD_1_3
                 .GetTypeInfo()
 #endif
                 .IsValueType ? Activator.CreateInstance(type) : null;
@@ -67,11 +67,11 @@ namespace Args
             return type.GetInterfaces()
                     .Union(new[] { type })
                     .Where(i => i
-#if !NET_FRAMEWORK
+#if NETSTANDARD_1_3
                 .GetTypeInfo()
 #endif
                     .IsGenericType && i
-#if !NET_FRAMEWORK
+#if NETSTANDARD_1_3
                 .GetTypeInfo()
 #endif
                     .GetGenericTypeDefinition() == typeof(IEnumerable<>))

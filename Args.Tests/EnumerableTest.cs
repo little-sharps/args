@@ -1,10 +1,8 @@
-﻿using System;
+﻿using NUnit.Framework;
+using NUnit.Framework.Constraints;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using SharpTestsEx;
-using System.Collections.ObjectModel;
 
 namespace Args.Tests
 {
@@ -23,15 +21,15 @@ namespace Args.Tests
             public List<float> Radians { get; set; }
         }
         #endregion
-
-        Lazy<IModelBindingDefinition<SwitchOnlyModel>> switchOnlyModelUnderTest;
-        Lazy<IModelBindingDefinition<OrdinalModel>> ordinalModelUnderTest;
+        
+        IModelBindingDefinition<SwitchOnlyModel> switchOnlyModelUnderTest;
+        IModelBindingDefinition<OrdinalModel> ordinalModelUnderTest;
 
         [SetUp]        
         public void Setup()
         {
-            switchOnlyModelUnderTest = new Lazy<IModelBindingDefinition<SwitchOnlyModel>>(() => Configuration.Configure<SwitchOnlyModel>());
-            ordinalModelUnderTest = new Lazy<IModelBindingDefinition<OrdinalModel>>(() => Configuration.Configure<OrdinalModel>());
+            switchOnlyModelUnderTest = Configuration.Configure<SwitchOnlyModel>();
+            ordinalModelUnderTest = Configuration.Configure<OrdinalModel>();
         }
 
         [Test]
@@ -39,15 +37,15 @@ namespace Args.Tests
         {
             var args = new[] { "/i", "123", "/n", "My Name", "/d", "1/1/2000", "1/1/2001", "/q", "5", "9", "100", "/t", "12.01", "10.55", "43", "107.6", "/s", "true", "true", "false", "false", "false", "/r", "1.2", "2.3" };
 
-            var test = switchOnlyModelUnderTest.Value.CreateAndBind(args);
-            test.Id.Should().Be.EqualTo(123);
-            test.Name.Should().Be.EqualTo("My Name");
-            
-            test.Date.SequenceEqual(new[] { new DateTime(2000, 1, 1), new DateTime(2001, 1, 1) }).Should().Be.True();
-            test.Quantities.SequenceEqual(new[] { 5, 9, 100 }).Should().Be.True();
-            test.Totals.SequenceEqual(new[] { 12.01M, 10.55M, 43M, 107.6M }).Should().Be.True();
-            test.Switches.SequenceEqual(new[] { true, true, false, false, false}).Should().Be.True();
-            test.Radians.SequenceEqual(new[] { 1.2f, 2.3f }).Should().Be.True();
+            var test = switchOnlyModelUnderTest.CreateAndBind(args);
+
+            Assert.AreEqual(123, test.Id);
+            Assert.AreEqual("My Name", test.Name);
+            Assert.IsTrue(new[] { new DateTime(2000, 1, 1), new DateTime(2001, 1, 1) }.SequenceEqual(test.Date));
+            Assert.IsTrue(new[] { 5, 9, 100 }.SequenceEqual(test.Quantities));
+            Assert.IsTrue(new[] { 12.01M, 10.55M, 43M, 107.6M }.SequenceEqual(test.Totals));
+            Assert.IsTrue(new[] { true, true, false, false, false }.SequenceEqual(test.Switches));
+            Assert.IsTrue(new[] { 1.2f, 2.3f }.SequenceEqual(test.Radians));
         }
 
         #region Model Under Test
@@ -65,10 +63,10 @@ namespace Args.Tests
         {
             var args = new[] { "5", "Test1.txt", "test5.txt", "backup.sql" };
 
-            var test = ordinalModelUnderTest.Value.CreateAndBind(args);
-            test.Id.Should().Be.EqualTo(5);
+            var test = ordinalModelUnderTest.CreateAndBind(args);
 
-            test.FileNames.SequenceEqual(new[] { "Test1.txt", "test5.txt", "backup.sql" }).Should().Be.True();
+            Assert.AreEqual(5, test.Id);
+            Assert.IsTrue(new[] { "Test1.txt", "test5.txt", "backup.sql" }.SequenceEqual(test.FileNames));
         }
 
         #region Model Under Test
@@ -85,7 +83,9 @@ namespace Args.Tests
         [Test]
         public void ErrorTest()
         {
-            Executing.This(() => Configuration.Configure<InvalidModel>()).Should().Throw<InvalidOperationException>();
+            void execute() => Configuration.Configure<InvalidModel>();
+
+            Assert.Throws(new ExceptionTypeConstraint(typeof(InvalidModel)), execute);
         }
     }
 }

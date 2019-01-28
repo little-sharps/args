@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using SharpTestsEx;
+﻿using NUnit.Framework;
 using System.ComponentModel;
 
 namespace Args.Tests
@@ -48,11 +43,11 @@ namespace Args.Tests
 
             var result = simpleTestModelDefinitionUnderTest.CreateAndBind(args);
 
-            result.FileName.Should().Be.EqualTo("MyAssembly.dll");
-            result.Id.Should().Be.EqualTo(223);
-            result.Name.Should().Be.EqualTo("My Name");
-            result.Force.Should().Be.True();
-            result.Speed.Should().Be.EqualTo(FanSpeed.Low | FanSpeed.Medium);
+            Assert.AreEqual("MyAssembly.dll", result.FileName);
+            Assert.AreEqual(223, result.Id);
+            Assert.AreEqual("My Name", result.Name);
+            Assert.IsTrue(result.Force);
+            Assert.AreEqual(FanSpeed.Low | FanSpeed.Medium, result.Speed);
         }
 
         [Test]
@@ -62,11 +57,11 @@ namespace Args.Tests
 
             var result = simpleTestModelDefinitionUnderTest.CreateAndBind(args);
 
-            result.FileName.Should().Be.EqualTo("MyAssembly.dll");
-            result.Id.Should().Be.EqualTo(223);
-            result.Name.Should().Be.EqualTo("My Name");
-            result.Force.Should().Be.False();
-            result.Speed.Should().Be.EqualTo(FanSpeed.Low | FanSpeed.Medium);
+            Assert.AreEqual("MyAssembly.dll", result.FileName);
+            Assert.AreEqual(223, result.Id);
+            Assert.AreEqual("My Name", result.Name);
+            Assert.IsFalse(result.Force);
+            Assert.AreEqual(FanSpeed.Low | FanSpeed.Medium, result.Speed);
         }
 
         [Test]
@@ -76,11 +71,11 @@ namespace Args.Tests
 
             var result = simpleTestModelDefinitionUnderTest.CreateAndBind(args);
 
-            result.FileName.Should().Be.EqualTo("MyAssembly.dll");
-            result.Id.Should().Be.EqualTo(20);
-            result.Name.Should().Be.EqualTo("My Name");
-            result.Force.Should().Be.True();
-            result.Speed.Should().Be.EqualTo(FanSpeed.Low | FanSpeed.Medium);
+            Assert.AreEqual("MyAssembly.dll", result.FileName);
+            Assert.AreEqual(20, result.Id);
+            Assert.AreEqual("My Name", result.Name);
+            Assert.IsTrue(result.Force);
+            Assert.AreEqual(FanSpeed.Low | FanSpeed.Medium, result.Speed);
         }
 
         [Test]
@@ -88,13 +83,13 @@ namespace Args.Tests
         {
             var args = new[] { "MyAssembly.dll", "/id", "223", "/n", "My Name", "/s", "Low,", "Medium", "/fo" };
 
-            var result = simpleTestModelDefinitionUnderTest.CreateAndBind(args);
+            var result = simpleTestModelDefinitionUnderTest.CreateAndBind(args);            
 
-            result.FileName.Should().Be.EqualTo("MyAssembly.dll");
-            result.Id.Should().Be.EqualTo(223);
-            result.Name.Should().Be.EqualTo("My Name");
-            result.Force.Should().Be.True();
-            result.Speed.Should().Be.EqualTo(FanSpeed.Low | FanSpeed.Medium);
+            Assert.AreEqual("MyAssembly.dll", result.FileName);
+            Assert.AreEqual(223, result.Id);
+            Assert.AreEqual("My Name", result.Name);
+            Assert.IsTrue(result.Force);
+            Assert.AreEqual(FanSpeed.Low | FanSpeed.Medium, result.Speed);
         }
 
         #region Model Under Test
@@ -112,8 +107,8 @@ namespace Args.Tests
             var args = new[] { "/f" };
 
             var result = simpleSwitchOnlyModelDefinitionUnderTest.CreateAndBind(args);
-
-            result.Force.Should().Be.True();
+            
+            Assert.IsTrue(result.Force);
         }
     }
 }

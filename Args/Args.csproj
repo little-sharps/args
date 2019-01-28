@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>net35;net40;netstandard1.3;netstandard2.0</TargetFrameworks>
     <OutputTypeEx>Library</OutputTypeEx>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSource>true</IncludeSource>
@@ -13,15 +13,15 @@
     <Description>Command line parser for .NET. Parses command line parameters into custom POCO objects.</Description>
     <PackageLicenseUrl>https://github.com/littlebits/args</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/littlebits/args</PackageProjectUrl>
-    <PackageIconUrl>http://little-sharps.github.io/args/console32.png</PackageIconUrl>
+    <PackageIconUrl>http://little-sharps.github.io/args/console256.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/littlebits/args</RepositoryUrl>
     <RepositoryType />
     <PackageTags>littlebits command line parser parse arguments args</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard1.3'">
-    <DefineConstants>NET_FRAMEWORK</DefineConstants>    
-  </PropertyGroup>  
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <DefineConstants>NETSTANDARD_1_3</DefineConstants>
+  </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.1.0" />
@@ -30,7 +30,11 @@
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.1.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net35' OR '$(TargetFramework)' == 'net40'">
     <Reference Include="System.ComponentModel.DataAnnotations" />    
   </ItemGroup>
 

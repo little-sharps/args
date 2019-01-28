@@ -27,7 +27,7 @@ namespace Args.Help
             if (string.IsNullOrEmpty(modelHelp.HelpText))
             {
                 var helpAttribute = typeof(TModel)
-#if !NET_FRAMEWORK
+#if NETSTANDARD_1_3
                 .GetTypeInfo()
 #endif
                     .GetCustomAttributes(true).OfType<ResourceMemberHelpAttributeBase>().SingleOrDefault();

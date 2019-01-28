@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NUnit.Framework;
+using System;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Args.Tests
 {
@@ -23,8 +21,8 @@ namespace Args.Tests
         public void SimpleModelFluentTest()
         {
             var m = new ModelBindingDefinition<SimpleTestModel>()
-            .AsFluent().UsingStringComparer(StringComparer.InvariantCulture)            
-            .ParsesArgumentsWith(typeof(int), new System.ComponentModel.Int16Converter())
+            .AsFluent().UsingStringComparer(StringComparer.Ordinal)            
+            .ParsesArgumentsWith(typeof(int), new Int16Converter())
             .HasFirstOrdinalArgumentOf(a => a.FileName)
             .ForMember(a => a.Name)
                 .WatchesFor("name", "nam")
@@ -35,39 +33,39 @@ namespace Args.Tests
             .UsingSwitchDelimiter("--")
             .Initialize();
 
-            m.GetOrdinalArguments().Count().Should().Be.EqualTo(1);
-            m.GetOrdinalArguments().Should().Contain(m.Members.GetMemberBindingDefinitionFor(a => a.FileName).MemberInfo);
-            m.StringComparer.Should().Be.EqualTo(StringComparer.InvariantCulture);
-            m.SwitchDelimiter.Should().Be.EqualTo("--");
-            m.TypeConverters.Count.Should().Be.EqualTo(1);
-            m.TypeConverters.ContainsKey(typeof(int));
-            m.TypeConverters[typeof(int)].Should().Be.OfType<System.ComponentModel.Int16Converter>();
+            Assert.AreEqual(1, m.GetOrdinalArguments().Count());
+            Assert.Contains(m.Members.GetMemberBindingDefinitionFor(a => a.FileName).MemberInfo, m.GetOrdinalArguments().ToList());
+            Assert.AreEqual(StringComparer.Ordinal, m.StringComparer);
+            Assert.AreEqual("--", m.SwitchDelimiter);
+            Assert.AreEqual(1, m.TypeConverters.Count);
+            Assert.IsTrue(m.TypeConverters.ContainsKey(typeof(int)));            
+            Assert.AreEqual(typeof(Int16Converter), m.TypeConverters[typeof(int)]);
 
             var member = m.Members.GetMemberBindingDefinitionFor(a => a.Id);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.TypeConverter.Should().Be.Null();
-            member.SwitchValues.Count().Should().Be.EqualTo(1);
-            member.CanHandleSwitch("id").Should().Be.True();
-            member.HelpText.Should().Be.EqualTo("Hello World");
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.IsNull(member.TypeConverter);
+            Assert.AreEqual(1, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("id"));
+            Assert.AreEqual("Hello World", member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.Name);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.TypeConverter.Should().Be.Null();
-            member.SwitchValues.Count().Should().Be.EqualTo(2);
-            member.CanHandleSwitch("NAM").Should().Be.False();
-            member.CanHandleSwitch("nAmE").Should().Be.False();
-            member.CanHandleSwitch("nam").Should().Be.True();
-            member.CanHandleSwitch("name").Should().Be.True();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.IsNull(member.TypeConverter);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsFalse(member.CanHandleSwitch("NAM"));
+            Assert.IsFalse(member.CanHandleSwitch("nAmE"));
+            Assert.IsTrue(member.CanHandleSwitch("nam"));
+            Assert.IsTrue(member.CanHandleSwitch("name"));
+            Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.FileName);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.TypeConverter.Should().Be.Null();
-            member.SwitchValues.Should().Be.Empty();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.IsNull(member.TypeConverter);
+            Assert.IsEmpty(member.SwitchValues);
+            Assert.IsNull(member.HelpText);
         }
     }
 }

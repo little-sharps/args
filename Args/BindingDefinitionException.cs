@@ -24,7 +24,7 @@ namespace Args
         /// <param name="inner"></param>
         public BindingDefinitionException(string message, Exception inner) : base(message, inner) { }
 
-#if NET_FRAMEWORK
+#if !NETSTANDARD_1_3
         /// <summary>
         /// 
         /// </summary>

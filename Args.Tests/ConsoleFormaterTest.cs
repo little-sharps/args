@@ -1,6 +1,5 @@
 ﻿using Args.Help.Formatters;
 using NUnit.Framework;
-using SharpTestsEx;
 using System;
 
 
@@ -43,8 +42,7 @@ namespace Args.Tests
             var help = new Help.HelpProvider().GenerateModelHelp(definition);
 
             var f = new ConsoleHelpFormatter(80, 1, 5);
-
-            f.GetHelp(help).Should().Be.EqualTo(Properties.Resources.HelpOutput);
+            Assert.AreEqual(Properties.Resources.HelpOutput, f.GetHelp(help));            
         }
 
         #region Model Under Test
@@ -62,7 +60,7 @@ namespace Args.Tests
 
             var f = new ConsoleHelpFormatter(80, 1, 5);
 
-            f.GetHelp(help).Should().Be.EqualTo("<command> \r\n\r\n\r\n");
+            Assert.AreEqual("<command> \r\n\r\n\r\n", f.GetHelp(help));
         }
     }
 }
