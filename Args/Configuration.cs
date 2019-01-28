@@ -2,11 +2,14 @@
 namespace Args
 {
     /// <summary>
-    /// A static wraper for the default implementation of IArgsConfiguration.  Singleton instance only
+    /// A static wraper for the default implementation of IArgsConfiguration. Singleton instance only
     /// </summary>
     public class Configuration : IArgsConfiguration
     {
         private static IArgsConfiguration instance;
+        /// <summary>
+        /// Retrives the singleton instance of <see cref="IArgsConfiguration"/>
+        /// </summary>
         public static IArgsConfiguration Instance
         {
             get

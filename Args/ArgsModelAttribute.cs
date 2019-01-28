@@ -8,20 +8,35 @@ namespace Args
     [AttributeUsage(AttributeTargets.Class)]
     public class ArgsModelAttribute : Attribute
     {
+        /// <summary>
+        /// Attribute with default settings applied
+        /// </summary>
         public static ArgsModelAttribute Default
         {
             get { return new ArgsModelAttribute(); }
         }
 
+        /// <summary>
+        /// Initialize instance with default settings applied
+        /// </summary>
         public ArgsModelAttribute()
         {
             SwitchDelimiter = "/";
             StringComparison = StringComparison.CurrentCultureIgnoreCase;
         }
 
+        /// <summary>
+        /// The string used to identify a switch argument
+        /// </summary>
         public string SwitchDelimiter { get; set; }
+        /// <summary>
+        /// Determines the string comparer used to match switch values
+        /// </summary>
         public StringComparison StringComparison { get; set; }
 
+        /// <summary>
+        /// Gets the <see cref="System.StringComparer"/> instance based on the value in <see cref="StringComparison"/>
+        /// </summary>
         public StringComparer StringComparer
         {
             get
@@ -43,7 +58,7 @@ namespace Args
                     case StringComparison.OrdinalIgnoreCase:
                         return StringComparer.OrdinalIgnoreCase;
                     default:
-                        throw new ArgumentOutOfRangeException("StringComparison");
+                        throw new ArgumentOutOfRangeException(nameof(StringComparison));
                 }
             }
         }

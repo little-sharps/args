@@ -12,6 +12,11 @@ namespace Args
     /// </summary>
     public class ConventionBasedModelDefinitionInitializer : IModelBindingDefinitionInitializer
     {
+        /// <summary>
+        /// Initializes the provided <see cref="IModelBindingDefinition{TModel}"/> based on default conventions
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="init"></param>
         public void Initialize<TModel>(IModelBindingDefinition<TModel> init)
         {
             var modelAttribute = typeof(TModel)

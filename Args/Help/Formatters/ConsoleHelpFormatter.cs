@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Linq;
 
 namespace Args.Help.Formatters
 {
@@ -11,17 +10,38 @@ namespace Args.Help.Formatters
     /// </summary>
     public class ConsoleHelpFormatter : IHelpFormatter
     {
+        /// <summary>
+        /// The width of the output (use a width less than console width to prevent poorly formatted wrapping)
+        /// </summary>
         protected int BufferWidth { get; set; }
+        /// <summary>
+        /// Where to output the help text (for console, use <see cref="Console.Out"/>)
+        /// </summary>
         protected TextWriter Output { get; set; }
+        /// <summary>
+        /// Padding to use for sample commands
+        /// </summary>
         protected int CommandSamplePadding { get; set; }
+        /// <summary>
+        /// Padding to use for argument description
+        /// </summary>
         protected int ArgumentDescriptionPadding { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ConsoleHelpFormatter()
             : this(Console.BufferWidth, 1, 5)
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bufferWidth"></param>
+        /// <param name="commandSamplePadding"></param>
+        /// <param name="argumentDescriptionPadding"></param>
         public ConsoleHelpFormatter(int bufferWidth, int commandSamplePadding, int argumentDescriptionPadding)
         {
             BufferWidth = bufferWidth;
@@ -30,6 +50,11 @@ namespace Args.Help.Formatters
 
         }
 
+        /// <summary>
+        /// Writes the help to the provided <see cref="TextWriter"/>
+        /// </summary>
+        /// <param name="modelHelp"></param>
+        /// <param name="writer"></param>
         public virtual void WriteHelp(ModelHelp modelHelp, TextWriter writer)
         {
             Output = writer;
@@ -57,6 +82,12 @@ namespace Args.Help.Formatters
             WriteJustifiedOutput(items, ArgumentDescriptionPadding);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="switchDelimiter"></param>
+        /// <param name="switches"></param>
+        /// <returns></returns>
         protected virtual string GetFullSwitchString(string switchDelimiter, IEnumerable<string> switches)
         {
             var values = String.Join("|", switches.Select(s => switchDelimiter + s).ToArray());
@@ -64,6 +95,11 @@ namespace Args.Help.Formatters
             return "[" + values + "]";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <param name="padding"></param>
         protected virtual void WriteJustifiedOutput(IDictionary<string, string> lines, int padding)
         {
             if (lines.Any())
@@ -76,6 +112,12 @@ namespace Args.Help.Formatters
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="leftColumnText"></param>
+        /// <param name="rightColumnText"></param>
+        /// <param name="totalPadding"></param>
         protected virtual void WriteJustifiedItem(string leftColumnText, string rightColumnText, int totalPadding)
         {
             rightColumnText = rightColumnText ?? String.Empty;
@@ -131,6 +173,11 @@ namespace Args.Help.Formatters
                 Output.WriteLine();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelHelp"></param>
+        /// <param name="writer"></param>
         protected virtual void WriteUsage(ModelHelp modelHelp, TextWriter writer)
         {
             var values = modelHelp.Members.Where(m => m.OrdinalIndex.HasValue)

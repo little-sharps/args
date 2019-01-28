@@ -11,14 +11,28 @@ namespace Args
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class ArgsMemberSwitchAttribute : Attribute
     {
+        /// <summary>
+        /// Allowable swith values
+        /// </summary>
         public string[] SwitchValues { get; private set; }
+        /// <summary>
+        /// 0-based position of ordinal argument
+        /// </summary>
         public int? ArgumentIndex { get; private set; }
 
+        /// <summary>
+        /// Initialize as a switch argument
+        /// </summary>
+        /// <param name="switchValues"></param>
         public ArgsMemberSwitchAttribute(params string[] switchValues)
         {
             SwitchValues = switchValues;
         }
 
+        /// <summary>
+        /// Initialize as an ordinal argument
+        /// </summary>
+        /// <param name="argumentIndex"></param>
         public ArgsMemberSwitchAttribute(int argumentIndex)
         {
             ArgumentIndex = argumentIndex;

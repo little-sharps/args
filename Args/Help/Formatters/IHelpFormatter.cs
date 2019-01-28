@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Text;
 
 namespace Args.Help.Formatters
 {
@@ -11,9 +9,17 @@ namespace Args.Help.Formatters
     /// </summary>
     public interface IHelpFormatter
     {
+        /// <summary>
+        /// When implemented, help text will be written to the provided <see cref="TextWriter"/>
+        /// </summary>
+        /// <param name="modelHelp"></param>
+        /// <param name="writer"></param>
         void WriteHelp(ModelHelp modelHelp, TextWriter writer);
     }
 
+    /// <summary>
+    /// Extension helpers for the <see cref="IHelpFormatter"/> interface
+    /// </summary>
     public static class HelpFormatterExtensions
     {
         /// <summary>

@@ -6,17 +6,25 @@ using System.Text;
 namespace Args
 {
     /// <summary>
-    /// Holds a static reference to an IServiceProvider.  If one is not specified, a default one will be use which simply uses Activator.CreateInstance and assumes a default constructor
+    /// Holds a static reference to an IServiceProvider; if one is not specified, a default one will be used that delegates to <see cref="Activator.CreateInstance(Type)"/> and assumes a default constructor
     /// </summary>
     public class ArgsTypeResolver : IServiceProvider
-    {        
+    {
+        /// <summary>
+        /// The <see cref="IServiceProvider" /> used by Args
+        /// </summary>
         public static IServiceProvider Current { get; set; }
 
         static ArgsTypeResolver()
         {
-            ArgsTypeResolver.Current = new ArgsTypeResolver();
+            Current = new ArgsTypeResolver();
         }
 
+        /// <summary>
+        /// Creates the specified service, assumes a public default constructor exists
+        /// </summary>
+        /// <param name="serviceType"></param>
+        /// <returns></returns>
         public object GetService(Type serviceType)
         {
             try

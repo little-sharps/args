@@ -9,6 +9,12 @@ namespace Args.Help
     /// </summary>
     public class HelpProvider : IHelpProvider
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="definition"></param>
+        /// <returns></returns>
         public ModelHelp GenerateModelHelp<TModel>(IModelBindingDefinition<TModel> definition)
         {
             var modelHelp = new ModelHelp
@@ -18,7 +24,7 @@ namespace Args.Help
                 HelpText = definition.CommandModelDescription,
             };
 
-            if (String.IsNullOrEmpty(modelHelp.HelpText))
+            if (string.IsNullOrEmpty(modelHelp.HelpText))
             {
                 var helpAttribute = typeof(TModel)
 #if !NET_FRAMEWORK
