@@ -1,10 +1,8 @@
 ﻿using NUnit.Framework;
-using SharpTestsEx;
+using NUnit.Framework.Constraints;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace Args.Tests
 {
@@ -32,11 +30,15 @@ namespace Args.Tests
 
             var ordinalArguments = m.GetOrdinalArguments();
 
-            ordinalArguments.Count().Should().Be.EqualTo(3);
+            Assert.AreEqual(3, ordinalArguments.Count());
 
-            ordinalArguments.ElementAt(0).Should().Be.EqualTo(m.Members.GetMemberBindingDefinitionFor(a => a.Name).MemberInfo);
-            ordinalArguments.ElementAt(1).Should().Be.EqualTo(m.Members.GetMemberBindingDefinitionFor(a => a.Count).MemberInfo);
-            ordinalArguments.ElementAt(2).Should().Be.EqualTo(m.Members.GetMemberBindingDefinitionFor(a => a.Value).MemberInfo);            
+
+            Assert.IsTrue(new[]
+            {
+                m.Members.GetMemberBindingDefinitionFor(a => a.Name).MemberInfo,
+                m.Members.GetMemberBindingDefinitionFor(a => a.Count).MemberInfo,
+                m.Members.GetMemberBindingDefinitionFor(a => a.Value).MemberInfo,
+            }.SequenceEqual(ordinalArguments));
         }
 
         [Test]
@@ -46,9 +48,9 @@ namespace Args.Tests
 
             var c = Configuration.Configure<OrdinalModel>().CreateAndBind(args);
 
-            c.Name.Should().Be.EqualTo(args[0]);
-            c.Count.Should().Be.EqualTo(int.Parse(args[1]));
-            c.Value.Should().Be.EqualTo(decimal.Parse(args[2], CultureInfo.InvariantCulture));
+            Assert.AreEqual(args[0], c.Name);
+            Assert.AreEqual(int.Parse(args[1]), c.Count);
+            Assert.AreEqual(decimal.Parse(args[2], CultureInfo.InvariantCulture), c.Value);
         }
 
         [Test]
@@ -58,11 +60,11 @@ namespace Args.Tests
 
             var m = Configuration.Configure<OrdinalModel>();
 
-            var exception = Executing.This(() => m.CreateAndBind(args))
-                .Should().Throw<InvalidOperationException>()
-                .And.Exception.Message
-                .Should()
-                .EndWith(string.Concat(m.GetOrdinalArguments().Count().ToString(), "."));
+            void executeThis() { m.CreateAndBind(args); }
+
+            var exception = Assert.Throws(new ExceptionTypeConstraint(typeof(InvalidOperationException)), executeThis);
+
+            Assert.IsTrue(exception.Message.EndsWith(m.GetOrdinalArguments().Count().ToString() + "."));
         }
     }
     

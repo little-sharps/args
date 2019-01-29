@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using SharpTestsEx;
+﻿using NUnit.Framework;
+using System;
 
 namespace Args.Tests
 {
@@ -34,7 +30,7 @@ namespace Args.Tests
         public void SimpleModelFluentSetup()
         {
             definitionUnderTest = new ModelBindingDefinition<SimpleTestModel>()
-            .AsFluent().UsingStringComparer(StringComparer.InvariantCulture)
+            .AsFluent().UsingStringComparer(StringComparer.CurrentCulture)
             .UsingSwitchDelimiter("--")
             .ParsesArgumentsWith(typeof(int), new System.ComponentModel.Int16Converter())
             .HasFirstOrdinalArgumentOf(a => a.FileName)
@@ -59,11 +55,11 @@ namespace Args.Tests
 
             var result = definitionUnderTest.CreateAndBind(args);
 
-            result.FileName.Should().Be.EqualTo("MyAssembly.dl");
-            result.Id.Should().Be.EqualTo(223);
-            result.Name.Should().Be.EqualTo("My Name");
-            result.Force.Should().Be.True();
-            result.Speed.Should().Be.EqualTo(FanSpeed.Low | FanSpeed.Medium);
+            Assert.AreEqual("MyAssembly.dll", result.FileName);
+            Assert.AreEqual(223, result.Id);            
+            Assert.AreEqual("My Name", result.Name);
+            Assert.IsTrue(result.Force);
+            Assert.AreEqual(FanSpeed.Low | FanSpeed.Medium, result.Speed);
         }
     }
 }

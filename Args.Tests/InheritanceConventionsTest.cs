@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NUnit.Framework;
+using System;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using SharpTestsEx;
 
 namespace Args.Tests
 {
@@ -48,92 +46,92 @@ namespace Args.Tests
         {
             var m = Configuration.Configure<SimpleModelClassWithBase>(new ConventionBasedModelDefinitionInitializer());
 
-            m.GetOrdinalArguments().Count().Should().Be.EqualTo(1);
-            m.GetOrdinalArguments().Should().Contain(m.Members.GetMemberBindingDefinitionFor(a => a.Name).MemberInfo);
-            m.StringComparer.Should().Be.EqualTo(StringComparer.CurrentCultureIgnoreCase);
-            m.SwitchDelimiter.Should().Be.EqualTo("/");
-            m.TypeConverters.Should().Be.Empty();
+            Assert.AreEqual(1, m.GetOrdinalArguments().Count());
+            Assert.Contains(m.Members.GetMemberBindingDefinitionFor(a => a.Name).MemberInfo, m.GetOrdinalArguments().ToList());
+            Assert.AreEqual(StringComparer.CurrentCultureIgnoreCase, m.StringComparer);
+            Assert.AreEqual("/", m.SwitchDelimiter);
+            Assert.IsEmpty(m.TypeConverters);
 
             var member = m.Members.GetMemberBindingDefinitionFor(a => a.Amount);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Count().Should().Be.EqualTo(2);
-            member.CanHandleSwitch("am").Should().Be.True();
-            member.CanHandleSwitch("amount").Should().Be.True();
-            member.TypeConverter.Should().Be.Null();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("am"));
+            Assert.IsTrue(member.CanHandleSwitch("amount"));
+            Assert.IsNull(member.TypeConverter);
+            Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.Angle);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Count().Should().Be.EqualTo(2);
-            member.CanHandleSwitch("an").Should().Be.True();
-            member.CanHandleSwitch("angle").Should().Be.True();
-            member.TypeConverter.Should().Be.Null();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("an"));
+            Assert.IsTrue(member.CanHandleSwitch("angle"));
+            Assert.IsNull(member.TypeConverter);
+            Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.BigNumber);
-            member.DefaultValue.Should().Be.EqualTo(88888888888);
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Count().Should().Be.EqualTo(2);
-            member.CanHandleSwitch("b").Should().Be.True();
-            member.CanHandleSwitch("bignumber").Should().Be.True();
-            member.TypeConverter.Should().Be.Null();
-            member.HelpText.Should().Be.Null();
+            Assert.AreEqual(88888888888, member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("b"));
+            Assert.IsTrue(member.CanHandleSwitch("bignumber"));
+            Assert.IsNull(member.TypeConverter);
+            Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.Force);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Count().Should().Be.EqualTo(2);
-            member.CanHandleSwitch("f").Should().Be.True();
-            member.CanHandleSwitch("force").Should().Be.True();
-            member.TypeConverter.Should().Be.Null();
-            member.HelpText.Should().Be.EqualTo("Forces the command");
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("f"));
+            Assert.IsTrue(member.CanHandleSwitch("force"));
+            Assert.IsNull(member.TypeConverter);
+            Assert.AreEqual("Forces the command", member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.Id);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Count().Should().Be.EqualTo(2);
-            member.CanHandleSwitch("i").Should().Be.True();
-            member.CanHandleSwitch("id").Should().Be.True();
-            member.TypeConverter.Should().Be.OfType<System.ComponentModel.GuidConverter>();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("i"));
+            Assert.IsTrue(member.CanHandleSwitch("id"));
+            Assert.AreEqual(typeof(GuidConverter), member.TypeConverter);
+            Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.Name);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Should().Be.Empty();
-            member.TypeConverter.Should().Be.Null();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.IsEmpty(member.SwitchValues);            
+            Assert.IsNull(member.TypeConverter);
+            Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.Number);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Count().Should().Be.EqualTo(2);
-            member.CanHandleSwitch("nu").Should().Be.True();
-            member.CanHandleSwitch("number").Should().Be.True();
-            member.TypeConverter.Should().Be.OfType<System.ComponentModel.Int32Converter>();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("nu"));
+            Assert.IsTrue(member.CanHandleSwitch("number"));
+            Assert.AreEqual(typeof(Int32Converter), member.TypeConverter);            
+            Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.PrecisionAngle);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Count().Should().Be.EqualTo(2);
-            member.CanHandleSwitch("p").Should().Be.True();
-            member.CanHandleSwitch("P").Should().Be.True();
-            member.CanHandleSwitch("precisionangle").Should().Be.True();
-            member.CanHandleSwitch("pReCiSionAnGlE").Should().Be.True();
-            member.TypeConverter.Should().Be.Null();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("p"));
+            Assert.IsTrue(member.CanHandleSwitch("P"));
+            Assert.IsTrue(member.CanHandleSwitch("precisionangle"));
+            Assert.IsTrue(member.CanHandleSwitch("pReCiSionAnGlE"));
+            Assert.IsNull(member.TypeConverter);
+            Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.StartDate);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Count().Should().Be.EqualTo(1);
-            member.CanHandleSwitch("sd").Should().Be.True();
-            member.CanHandleSwitch("SD").Should().Be.True();
-            member.TypeConverter.Should().Be.Null();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.AreEqual(1, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("sd"));
+            Assert.IsTrue(member.CanHandleSwitch("sD"));            
+            Assert.IsNull(member.TypeConverter);
+            Assert.IsNull(member.HelpText);
         }
     }
 }

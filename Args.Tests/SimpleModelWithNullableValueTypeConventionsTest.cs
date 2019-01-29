@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using SharpTestsEx;
+﻿using NUnit.Framework;
+using System;
 
 namespace Args.Tests
 {
@@ -23,19 +19,19 @@ namespace Args.Tests
         {
             var m = Configuration.Configure<ModelWithNullableProperty>(new ConventionBasedModelDefinitionInitializer());
 
-            m.GetOrdinalArguments().Should().Be.Empty();
-            m.StringComparer.Should().Be.EqualTo(StringComparer.CurrentCulture);
-            m.SwitchDelimiter.Should().Be.EqualTo("-");
+            Assert.IsEmpty(m.GetOrdinalArguments());
+            Assert.AreEqual(StringComparer.CurrentCulture, m.StringComparer);
+            Assert.AreEqual("-", m.SwitchDelimiter);
 
             var member = m.Members.GetMemberBindingDefinitionFor(a => a.Id);
-            member.DefaultValue.Should().Be.Null();
-            member.Parent.Should().Be.EqualTo(m);
-            member.SwitchValues.Count().Should().Be.EqualTo(2);
-            member.CanHandleSwitch("I").Should().Be.True();
-            member.CanHandleSwitch("i").Should().Be.False();
-            member.CanHandleSwitch("Id").Should().Be.True();
-            member.TypeConverter.Should().Be.Null();
-            member.HelpText.Should().Be.Null();
+            Assert.IsNull(member.DefaultValue);
+            Assert.AreSame(m, member.Parent);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("I"));
+            Assert.IsFalse(member.CanHandleSwitch("i"));
+            Assert.IsTrue(member.CanHandleSwitch("Id"));
+            Assert.IsNull(member.TypeConverter);
+            Assert.IsNull(member.HelpText);
         }        
     }
 }

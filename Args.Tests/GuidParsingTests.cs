@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using SharpTestsEx;
+﻿using NUnit.Framework;
+using System;
 
 namespace Args.Tests
 {
@@ -25,8 +21,8 @@ namespace Args.Tests
             var modelBindingDefinition = Configuration.Configure<SimpleModelForWeirdnessTest>();
             var model = modelBindingDefinition.CreateAndBind(new string[] { "/N", nameValue, "/I", idValue });
 
-            model.Name.Should().Be(nameValue);
-            model.Id.ToString().Should().Be(idValue);
+            Assert.AreEqual(nameValue, model.Name);
+            Assert.AreEqual(idValue, model.Id.ToString());
         }
 
         [Test]
@@ -38,8 +34,8 @@ namespace Args.Tests
             var modelBindingDefinition = Configuration.Configure<SimpleModelForWeirdnessTest>();
             var model = modelBindingDefinition.CreateAndBind(new string[] { "/N", nameValue, "/I", idValue });
 
-            model.Name.Should().Be(nameValue);
-            model.Id.ToString().Should().Be(idValue);
+            Assert.AreEqual(nameValue, model.Name);
+            Assert.AreEqual(idValue, model.Id.ToString());
         }
     }
 }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using NUnit.Framework.Constraints;
+using System;
 using System.ComponentModel.DataAnnotations;
-using SharpTestsEx;
 
 namespace Args.Tests
 {
@@ -20,12 +17,12 @@ namespace Args.Tests
         }
         #endregion
 
-        private Lazy<IModelBindingDefinition<ModelWithRequiredField>> modelWithRequiredFieldDefinition;
+        private IModelBindingDefinition<ModelWithRequiredField> modelWithRequiredFieldDefinition;
 
         [SetUp]
         public void SetUp()
         {
-            modelWithRequiredFieldDefinition = new Lazy<IModelBindingDefinition<ModelWithRequiredField>>(() => Configuration.Configure<ModelWithRequiredField>());
+            modelWithRequiredFieldDefinition = Configuration.Configure<ModelWithRequiredField>();
         }
 
         [Test]
@@ -33,10 +30,10 @@ namespace Args.Tests
         {
             var args = new[] { "/n", "my name", "/i", "5" };
 
-            var test = modelWithRequiredFieldDefinition.Value.CreateAndBind(args);
+            var test = modelWithRequiredFieldDefinition.CreateAndBind(args);
 
-            test.Id.Should().Be.EqualTo(5);
-            test.Name.Should().Be.EqualTo("my name");
+            Assert.AreEqual(5, test.Id);
+            Assert.AreEqual("my name", test.Name);
         }
 
         [Test]
@@ -44,7 +41,9 @@ namespace Args.Tests
         {
             var args = new[] { "/n", "my name" };
 
-            Executing.This(() => modelWithRequiredFieldDefinition.Value.CreateAndBind(args)).Should().Throw<InvalidOperationException>();
+            void executingThis() { modelWithRequiredFieldDefinition.CreateAndBind(args); }
+
+            Assert.Throws(new ExceptionTypeConstraint(typeof(InvalidOperationException)), executingThis);
         }
     }
 }

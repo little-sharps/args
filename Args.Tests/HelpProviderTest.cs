@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Args.Help;
 using NUnit.Framework;
-using Args.Help;
-using SharpTestsEx;
+using System;
+using System.Linq;
 
 namespace Args.Tests
 {
@@ -41,29 +38,29 @@ namespace Args.Tests
 
             var result = help.GenerateModelHelp(config);
 
-            result.SwitchDelimiter.Should().Be.EqualTo("//");
-            result.Members.Count().Should().Be.EqualTo(4);
-            result.HelpText.Should().Be.EqualTo("This is my console application");
+            Assert.AreEqual("//", result.SwitchDelimiter);
+            Assert.AreEqual(4, result.Members);
+            Assert.AreEqual("This is my console application", result.HelpText);
 
             var m = result.Members.Where(h => h.Name == "Id").Single();
-            m.HelpText.Should().Be.EqualTo("This is the Id");
-            m.OrdinalIndex.Should().Be.EqualTo(default(int?));
-            m.Switches.Should().Have.SameSequenceAs(new[] { "Id", "I" });
+            Assert.AreEqual("This is the Id", m.HelpText);
+            Assert.AreEqual(default(int?), m.OrdinalIndex);
+            Assert.IsTrue(new[] { "Id", "I" }.SequenceEqual(m.Switches));
 
             m = result.Members.Where(h => h.Name == "Name").Single();
-            m.HelpText.Should().Be.EqualTo("This is the name you should put in.");
-            m.OrdinalIndex.Should().Be.EqualTo(default(int?));
-            m.Switches.Should().Have.SameSequenceAs(new[] { "Name", "N" });
+            Assert.AreEqual("This is the name you should put in.", m.HelpText);
+            Assert.AreEqual(default(int?), m.OrdinalIndex);
+            Assert.IsTrue(new[] { "Name", "N" }.SequenceEqual(m.Switches));
 
             m = result.Members.Where(h => h.Name == "Switch").Single();
-            m.HelpText.Should().Be.EqualTo("Force it!");
-            m.OrdinalIndex.Should().Be.EqualTo(default(int?));
-            m.Switches.Should().Have.SameSequenceAs(new[] { "Switch", "S" });
+            Assert.AreEqual("Force it!", m.HelpText);
+            Assert.AreEqual(default(int?), m.OrdinalIndex);
+            Assert.IsTrue(new[] { "Switch", "S" }.SequenceEqual(m.Switches));
 
             m = result.Members.Where(h => h.Name == "Date").Single();
-            m.HelpText.Should().Be.EqualTo("Effective date");
-            m.OrdinalIndex.Should().Be.EqualTo(0);
-            m.Switches.Should().Be.Empty();
+            Assert.AreEqual("Effective date", m.HelpText);
+            Assert.Zero(m.OrdinalIndex.Value);
+            Assert.IsEmpty(m.Switches);
         }
     }
 }
