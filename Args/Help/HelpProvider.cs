@@ -38,6 +38,12 @@ namespace Args.Help
             return modelHelp;
         }
 
+        /// <summary>
+        /// Generates help for members
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="definition"></param>
+        /// <returns></returns>
         public MemberHelp GenerateMemberHelp<TModel>(IMemberBindingDefinition<TModel> definition)
         {
             var memberHelp = new MemberHelp

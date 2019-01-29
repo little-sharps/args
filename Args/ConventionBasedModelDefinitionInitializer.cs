@@ -69,12 +69,23 @@ namespace Args
             init.SetOrdinalArguments(ordinalArguments.Select(a => a.Value));
         }
 
+        /// <summary>
+        /// Returns the members for the movided model type
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <returns></returns>
         protected virtual IEnumerable<MemberInfo> GetMembers(Type modelType)
         {
             return modelType.GetFields(BindingFlags.Instance | BindingFlags.Public)
                 .Concat(modelType.GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(p => p.CanWrite).Cast<MemberInfo>());
         }
 
+        /// <summary>
+        /// Detrmines the short version of a switch argument
+        /// </summary>
+        /// <param name="members"></param>
+        /// <param name="currentMember"></param>
+        /// <returns></returns>
         protected virtual string DeriveShortName(IEnumerable<MemberInfo> members, MemberInfo currentMember)
         {
             return DeriveShortNameRecursive(members, currentMember, 1);

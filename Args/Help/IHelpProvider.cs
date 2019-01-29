@@ -10,7 +10,19 @@ namespace Args.Help
     /// </summary>
     public interface IHelpProvider
     {
+        /// <summary>
+        /// Generates help for the provided model definition
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="definition"></param>
+        /// <returns></returns>
         ModelHelp GenerateModelHelp<TModel>(IModelBindingDefinition<TModel> definition);
+        /// <summary>
+        /// Generates help for the provided member definition
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="definition"></param>
+        /// <returns></returns>
         MemberHelp GenerateMemberHelp<TModel>(IMemberBindingDefinition<TModel> definition);
     }
 }

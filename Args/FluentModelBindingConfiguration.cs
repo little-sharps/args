@@ -116,6 +116,9 @@ namespace Args
         }
     }
 
+    /// <summary>
+    /// Helper methods for fluent configuration
+    /// </summary>
     public static class FluentModelBindingConfigurationExtensions
     {
         /// <summary>
