@@ -85,7 +85,7 @@ namespace Args.Tests
         {
             void execute() => Configuration.Configure<InvalidModel>();
 
-            Assert.Throws(new ExceptionTypeConstraint(typeof(InvalidModel)), execute);
+            Assert.Throws(new ExceptionTypeConstraint(typeof(InvalidOperationException)), execute);
         }
     }
 }

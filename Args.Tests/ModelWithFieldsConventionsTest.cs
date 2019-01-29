@@ -51,7 +51,7 @@ namespace Args.Tests
             Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.BigNumber);
-            Assert.AreEqual(88888888888, member.DefaultValue);
+            Assert.IsNull(member.DefaultValue);
             Assert.AreSame(m, member.Parent);
             Assert.AreEqual(2, member.SwitchValues.Count);
             Assert.IsTrue(member.CanHandleSwitch("b"));
@@ -66,7 +66,7 @@ namespace Args.Tests
             Assert.IsTrue(member.CanHandleSwitch("f"));
             Assert.IsTrue(member.CanHandleSwitch("force"));
             Assert.IsNull(member.TypeConverter);
-            Assert.AreEqual("Forces the command", member.HelpText);
+            Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.Id);
             Assert.IsNull(member.DefaultValue);
@@ -74,13 +74,15 @@ namespace Args.Tests
             Assert.AreEqual(2, member.SwitchValues.Count);
             Assert.IsTrue(member.CanHandleSwitch("i"));
             Assert.IsTrue(member.CanHandleSwitch("id"));
-            Assert.AreEqual(typeof(GuidConverter), member.TypeConverter);
+            Assert.IsNull(member.TypeConverter);
             Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.Name);
             Assert.IsNull(member.DefaultValue);
             Assert.AreSame(m, member.Parent);
-            Assert.IsEmpty(member.SwitchValues);
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("na"));
+            Assert.IsTrue(member.CanHandleSwitch("name"));
             Assert.IsNull(member.TypeConverter);
             Assert.IsNull(member.HelpText);
 
@@ -90,7 +92,7 @@ namespace Args.Tests
             Assert.AreEqual(2, member.SwitchValues.Count);
             Assert.IsTrue(member.CanHandleSwitch("nu"));
             Assert.IsTrue(member.CanHandleSwitch("number"));
-            Assert.AreEqual(typeof(Int32Converter), member.TypeConverter);
+            Assert.IsNull(member.TypeConverter);
             Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.PrecisionAngle);
@@ -107,9 +109,9 @@ namespace Args.Tests
             member = m.Members.GetMemberBindingDefinitionFor(a => a.StartDate);
             Assert.IsNull(member.DefaultValue);
             Assert.AreSame(m, member.Parent);
-            Assert.AreEqual(1, member.SwitchValues.Count);
-            Assert.IsTrue(member.CanHandleSwitch("sd"));
-            Assert.IsTrue(member.CanHandleSwitch("sD"));
+            Assert.AreEqual(2, member.SwitchValues.Count);
+            Assert.IsTrue(member.CanHandleSwitch("s"));
+            Assert.IsTrue(member.CanHandleSwitch("Startdate"));
             Assert.IsNull(member.TypeConverter);
             Assert.IsNull(member.HelpText);
         }

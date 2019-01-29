@@ -24,7 +24,6 @@ namespace Args.Tests
             [System.ComponentModel.TypeConverter(typeof(System.ComponentModel.GuidConverter))]
             public Guid Id { get; set; }
 
-            [System.ComponentModel.TypeConverter("System.ComponentModel.Int32Converter, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
             public int Number { get; set; }
 
             public decimal Amount { get; set; }
@@ -94,7 +93,7 @@ namespace Args.Tests
             Assert.AreEqual(2, member.SwitchValues.Count);
             Assert.IsTrue(member.CanHandleSwitch("i"));
             Assert.IsTrue(member.CanHandleSwitch("id"));
-            Assert.AreEqual(typeof(GuidConverter), member.TypeConverter);
+            Assert.AreEqual(typeof(GuidConverter), member.TypeConverter.GetType());
             Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.Name);
@@ -110,7 +109,7 @@ namespace Args.Tests
             Assert.AreEqual(2, member.SwitchValues.Count);
             Assert.IsTrue(member.CanHandleSwitch("nu"));
             Assert.IsTrue(member.CanHandleSwitch("number"));
-            Assert.AreEqual(typeof(Int32Converter), member.TypeConverter);
+            Assert.IsNull(member.TypeConverter);
             Assert.IsNull(member.HelpText);
 
             member = m.Members.GetMemberBindingDefinitionFor(a => a.PrecisionAngle);

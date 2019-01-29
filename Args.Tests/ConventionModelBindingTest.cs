@@ -93,12 +93,12 @@ namespace Args.Tests
         }
 
         #region Model Under Test
-        public class SimpleSwitchOnlyModel
-        {
-            public int Id { get; set; }
-            public bool Force { get; set; }
-            public string Name { get; set; }
-        }
+        //public class SimpleSwitchOnlyModel
+        //{            
+        //    public int Id { get; set; }
+        //    public bool Force { get; set; }
+        //    public string Name { get; set; }
+        //}
         #endregion
 
         [Test]
@@ -110,5 +110,12 @@ namespace Args.Tests
             
             Assert.IsTrue(result.Force);
         }
+    }
+
+    public class SimpleSwitchOnlyModel
+    {
+        public int Id { get; set; }
+        public bool Force { get; set; }
+        public string Name { get; set; }
     }
 }

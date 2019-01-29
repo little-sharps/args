@@ -39,7 +39,7 @@ namespace Args.Tests
             var result = help.GenerateModelHelp(config);
 
             Assert.AreEqual("//", result.SwitchDelimiter);
-            Assert.AreEqual(4, result.Members);
+            Assert.AreEqual(4, result.Members.Count());
             Assert.AreEqual("This is my console application", result.HelpText);
 
             var m = result.Members.Where(h => h.Name == "Id").Single();

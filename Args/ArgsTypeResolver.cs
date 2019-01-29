@@ -29,7 +29,12 @@ namespace Args
         {
             try
             {
-                return Activator.CreateInstance(serviceType, true);
+                return Activator.CreateInstance(serviceType
+#if NET_FRAMEWORK
+                    //In .NET Core, using true causes an exception, root cause unknown for now
+                    , true
+#endif
+                    );
             }
             catch (MissingMethodException ex)
             {

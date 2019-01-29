@@ -55,7 +55,7 @@ namespace Args.Tests
 
             var result = definitionUnderTest.CreateAndBind(args);
 
-            Assert.AreEqual("MyAssembly.dll", result.FileName);
+            Assert.AreEqual("MyAssembly.dl", result.FileName);
             Assert.AreEqual(223, result.Id);            
             Assert.AreEqual("My Name", result.Name);
             Assert.IsTrue(result.Force);

@@ -39,7 +39,7 @@ namespace Args.Tests
             Assert.AreEqual("--", m.SwitchDelimiter);
             Assert.AreEqual(1, m.TypeConverters.Count);
             Assert.IsTrue(m.TypeConverters.ContainsKey(typeof(int)));            
-            Assert.AreEqual(typeof(Int16Converter), m.TypeConverters[typeof(int)]);
+            Assert.AreEqual(typeof(Int16Converter), m.TypeConverters[typeof(int)].GetType());
 
             var member = m.Members.GetMemberBindingDefinitionFor(a => a.Id);
             Assert.IsNull(member.DefaultValue);
