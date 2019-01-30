@@ -7,6 +7,10 @@ using System.Reflection;
 
 namespace Args
 {
+    /// <summary>
+    /// The default <see cref="IModelBindingDefinition{TModel}"/> implementation
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
     public class ModelBindingDefinition<TModel> : IModelBindingDefinition<TModel>
     {
         /// <summary>
@@ -22,16 +26,34 @@ namespace Args
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual IDictionary<Type, TypeConverter> TypeConverters { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected virtual IList<MemberInfo> OrdinalArguments { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual string SwitchDelimiter { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual StringComparer StringComparer { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string CommandModelDescription { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ModelBindingDefinition()
         {
             Members = new Dictionary<MemberInfo, MemberBindingDefinition<TModel>>();
@@ -41,6 +63,11 @@ namespace Args
             StringComparer = System.StringComparer.CurrentCultureIgnoreCase;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public virtual TypeConverter TryGetTypeConverter(Type type)
         {
             TypeConverter returnValue;
@@ -50,6 +77,11 @@ namespace Args
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
         public virtual IMemberBindingDefinition<TModel> GetOrCreateMemberBindingDefinition(MemberInfo member)
         {
 
@@ -64,6 +96,11 @@ namespace Args
             return returnValue;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
         public virtual IMemberBindingDefinition<TModel> GetMemberBindingDefinition(MemberInfo member)
         {
             var memberPair = Members.Where(m => m.Key.Name == member.Name);
@@ -72,6 +109,11 @@ namespace Args
         }
 
         #region Binding Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public virtual TModel CreateAndBind(IEnumerable<string> args)
         {
             var model = (TModel) ArgsTypeResolver.Current.GetService(typeof(TModel));
@@ -95,6 +137,11 @@ namespace Args
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="args"></param>
         public virtual void BindModel(TModel model, IEnumerable<string> args)
         {
             var unnamedArgs = args.TakeWhile(s => IsSwitch(s) == false);
@@ -142,6 +189,12 @@ namespace Args
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="arguments"></param>
+        /// <param name="model"></param>
+        /// <param name="memberBindingDefinition"></param>
         protected virtual void HandleInputs(IEnumerable<string> arguments, TModel model, MemberBindingDefinition<TModel> memberBindingDefinition)
         {
             var result = memberBindingDefinition.CoerceValue(arguments, model);
@@ -149,13 +202,21 @@ namespace Args
             memberBindingDefinition.SetMemberValue(result, model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         protected virtual bool IsSwitch(string value)
         {
             return value.StartsWith(SwitchDelimiter);
         }
         #endregion        
     
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
         public void AddOrdinalArgument(MemberInfo member)
         {
             if (OrdinalArguments.Any(m => m.GetDeclaredType().GetGenericIEnumerable() != null))
@@ -165,18 +226,29 @@ namespace Args
             OrdinalArguments.Add(member);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="members"></param>
         public void SetOrdinalArguments(IEnumerable<MemberInfo> members)
         {
             foreach (var member in members)
                 AddOrdinalArgument(member);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<MemberInfo> GetOrdinalArguments()
         {
             return new ReadOnlyCollection<MemberInfo>(OrdinalArguments);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
         public void RemoveMember(MemberInfo member)
         {
             if (Members.ContainsKey(member))
@@ -186,6 +258,11 @@ namespace Args
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
         public int? OrdinalIndexOf(MemberInfo member)
         {
             var index = OrdinalArguments.IndexOf(member);

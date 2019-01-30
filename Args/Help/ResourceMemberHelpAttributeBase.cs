@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Args.Help
 {
@@ -14,6 +11,10 @@ namespace Args.Help
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Class)]
     public abstract class ResourceMemberHelpAttributeBase : Attribute
     {
+        /// <summary>
+        /// Returns the helptext provided by the implementation of <see cref="ResourceMemberHelpAttributeBase"/>
+        /// </summary>
+        /// <returns></returns>
         public abstract string GetHelpText();
     }
 }

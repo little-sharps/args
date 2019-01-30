@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Args
 {
@@ -12,11 +9,20 @@ namespace Args
     {
         private readonly Func<string, object> converter;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="converter"></param>
         public LambdaArgsTypeConverter(Func<string, object> converter)
         {
             this.converter = converter;
         }
 
+        /// <summary>
+        /// Converts the provided <paramref name="value"/>
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public object Convert(string value)
         {
             return converter(value);
