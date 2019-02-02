@@ -6,7 +6,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSource>true</IncludeSource>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Authors>Brian Ball</Authors>
     <Company />
     <Product />
@@ -17,6 +17,8 @@
     <RepositoryUrl>https://github.com/littlebits/args</RepositoryUrl>
     <RepositoryType />
     <PackageTags>littlebits command line parser parse arguments args</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
