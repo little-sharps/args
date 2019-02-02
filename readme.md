@@ -1,7 +1,7 @@
 ![Logo](http://little-sharps.github.io/args/console32.png) Args [![Build status](https://ci.appveyor.com/api/projects/status/pb8qpbl9v8nh1kbd)](https://ci.appveyor.com/project/cbrianball/args)
 ===========================================
 
-A .NET library designed to allow for binding command line arguments to POCOs.  The release will contain assemblies compiled in v3.5 and v4.0.
+A .NET library designed to allow for binding command line arguments to POCOs.  The release will contain assemblies compiled in v3.5 and v4.0. Starting with release 1.2.0 .NET Standard 1.3 and .NET Standard 2.0 are also supported.
 
 Features
 --------
