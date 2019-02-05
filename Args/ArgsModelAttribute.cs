@@ -47,7 +47,7 @@ namespace Args
                         return StringComparer.CurrentCulture;
                     case StringComparison.CurrentCultureIgnoreCase:
                         return StringComparer.CurrentCultureIgnoreCase;
-#if NET_FRAKEWORK
+#if !NETSTANDARD_1_3
                     case StringComparison.InvariantCulture:
                         return StringComparer.InvariantCulture;
                     case StringComparison.InvariantCultureIgnoreCase:
